@@ -5,10 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Pete's Pet Shop</title>
+    <title>MeToo Vault</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- new css -->
+    <link href="css/newcss.css" rel="stylesheet">
+    <!-- end of new css -->
+    
     <script src="bin/jsencrypt.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -70,27 +75,47 @@
             <h3 class="panel-title">Form</h3>
           </div>
           <div class="panel-body">
-            <div>I believe you. I'm sorry this happened. It's not your fault.
-              You are not alone. Here you are safe. You hold the only key and all the power in telling your story</div>
+            <div>
+              <p>I believe you.<br> 
+              I'm sorry this happened.<br> 
+              It's not your fault.<br>
+              You are not alone.<br> 
+              Here you are safe.<br> 
+              You hold the only key and all the power in telling your story.</p>
+            </div>
             <form>
+                
                  <input type="checkbox" id="VerbalAbuse"> Verbal Abuse
+                
                  <input type="checkbox" id="PhysicalAssault"> Physical Assault
+                
                  <input type="checkbox" id="Molested"> Molested
+            
                  <input type="checkbox" id="Rape"> Rape
+            
                  <input type="checkbox" id="Other"> Other
                  <input type="checkbox" id="DeclineToState"> Decline To State
 
-                <input type="text" id="yourname" name="yourname" placeholder="Your name">
-                <input type="text" id="dateofincident" name="dateofincident" placeholder="Date(s) of incident">
-                <input type="text" id="nameofvictim" name="nameofvictim" placeholder="Name of Victim(s)">
-                <input type="text" id="nameofabuser" name="nameofabuser" placeholder="Name of Abusers(s)">
-                <input type="text" id="cityofabuser" name="cityofabuser" placeholder="City of residence(s) of Abuser(s)">
-                <input type="text" id="locationofincident" name="locationofincident" placeholder="Location(s) of Incident">
-
-                <input type="text" id="tellyourstory" name="tellyourstory" placeholder="Tell your story .... ">
-
-                <button class="btn btn-default btn-adopt" type="button" data-id="0">Submit</button>
             </form>
+            <form class="form2">
+              <div class="inputbox">
+                <input class="inputbox" type="text" id="yourname" name="yourname" placeholder="Your name"><br>
+                <input class="inputbox" type="text" id="dateofincident" name="dateofincident" placeholder="Date(s) of incident"><br>
+                <input class="inputbox" type="text" id="nameofvictim" name="nameofvictim" placeholder="Name of Victim(s)"><br>
+                <input class="inputbox" type="text" id="nameofabuser" name="nameofabuser" placeholder="Name of Abusers(s)"><br>
+                <input class="inputbox" type="text" id="cityofabuser" name="cityofabuser" placeholder="City of residence(s) of Abuser(s)"><br>
+                <input class="inputbox" type="text" id="locationofincident" name="locationofincident" placeholder="Location(s) of Incident"><br>
+
+                <input class="inputbox" type="text" id="tellyourstory" name="tellyourstory" placeholder="Tell your story .... "><br>
+              </div> 
+
+                
+            </form>
+
+
+            <button class="btn btn-default btn-adopt" type="button" data-id="0">Submit</button>
+
+
           </div>
         </div>
       </div>
