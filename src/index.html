@@ -72,17 +72,93 @@
       <div class="col-sm-12">
         <div class="panel panel-default panel-pet">
           <div class="panel-heading">
-            <h3 class="panel-title">Form</h3>
+            <h4 class="panel-title">General Information (optional)
+              </h4>
+              <input type="checkbox" id="DeclineToState"> Make Private
+
           </div>
           <div class="panel-body">
             <div>
-              <p>I believe you.<br> 
-              I'm sorry this happened.<br> 
-              It's not your fault.<br>
-              You are not alone.<br> 
-              Here you are safe.<br> 
+              <p style="font-style: italic; color: #7E90A4;">I believe you. 
+              I'm sorry this happened. 
+              It's not your fault.
+              You are not alone. 
+              Here you are safe. 
               You hold the only key and all the power in telling your story.</p>
             </div>
+
+            <div>
+            <p style="font-style: bold; font-size: 20px;">Victim Information:</p>
+              <div>
+                Age at incident(s)<input class="inputbox-small" type="text" id="Age1" name="Age1" placeholder="">
+                Gender<input class="inputbox-small" type="text" id="Gender1" name="Gender1" placeholder=""><br>
+
+              </div>
+
+              <div style="margin-top: 20px;">
+                Ethnicity<input class="inputbox-small" type="text" id="Ethnicity1" name="Ethnicity1" placeholder="">
+                Sexual orientation<input class="inputbox-small" type="text" id="Sexual" name="Sexual" placeholder=""><br>
+
+              </div>
+
+              <div class="item">
+
+                <br/>
+    <a href="#" class="read_more">&#43 Add victim</a><br/>
+
+    <span class="more_text">
+        
+    </span>
+
+</div>
+            </div>
+
+
+<hr>
+
+
+<!-- Abuser information -->
+
+      <div>
+            <p style="font-style: bold; font-size: 20px;">Abuser Information:</p>
+              <div>
+                Age at incident(s)<input class="inputbox-small" type="text" id="Age" name="Age" placeholder="">
+                Gender<input class="inputbox-small" type="text" id="Gender" name="Gender" placeholder=""><br>
+
+              </div>
+
+              <div style="margin-top: 20px;">
+                Ethnicity<input class="inputbox-small" type="text" id="Ethnicity" name="Ethnicity" placeholder="">
+                
+
+              </div>
+
+              <div class="item">
+
+                <br/>
+    <a href="#" class="read_more">&#43 Add abuser</a><br/>
+
+    <span class="more_text">
+        
+    </span>
+
+</div>
+            </div>
+
+
+
+
+
+<!-- end of abuser information -->
+
+
+<hr>
+<div>
+  
+   <input class="inputbox" type="text" id="incident" name="incident" placeholder="Date(s) of Incident (MM/DD/YY)"><br>
+   <input class="inputbox" type="text" id="Cities" name="Cities" placeholder="Cities of Incident. Comma separated"><br>
+</div>
+
             <form>
                 
                  <input type="checkbox" id="VerbalAbuse"> Verbal Abuse
@@ -93,10 +169,19 @@
             
                  <input type="checkbox" id="Rape"> Rape
             
-                 <input type="checkbox" id="Other"> Other
+                 <input type="checkbox" id="Other"> Other<input class="inputbox2" type="text" id="other" name="other" placeholder="Please explain">
+
+
                  <input type="checkbox" id="DeclineToState"> Decline To State
 
             </form>
+
+
+            <hr>
+
+<h4 class="panel-title">Private Encrypted Information
+              </h4>
+
             <form class="form2">
               <div class="inputbox">
                 <input class="inputbox" type="text" id="yourname" name="yourname" placeholder="Your name"><br>
@@ -106,11 +191,15 @@
                 <input class="inputbox" type="text" id="cityofabuser" name="cityofabuser" placeholder="City of residence(s) of Abuser(s)"><br>
                 <input class="inputbox" type="text" id="locationofincident" name="locationofincident" placeholder="Location(s) of Incident"><br>
 
-                <input class="inputbox" type="text" id="tellyourstory" name="tellyourstory" placeholder="Tell your story .... "><br>
+                <input style="height: 700px;" class="inputbox" type="text" id="tellyourstory" name="tellyourstory" placeholder="Tell your story .... "><br>
               </div> 
 
                 
             </form>
+
+
+
+
 
 
             <button class="btn btn-default btn-adopt" type="button" data-id="0">Submit</button>
@@ -160,4 +249,19 @@ gwQco1KRMDSmXSMkDwIDAQAB
     <script src="js/app.js"></script>
 
   </body>
+
+<script>  
+$(function(){ /* to make sure the script runs after page load */
+
+    $('a.read_more').click(function(event){ /* find all a.read_more elements and bind the following code to them */
+
+        event.preventDefault(); /* prevent the a from changing the url */
+        $(this).parents('.item').find('.more_text').show(); /* show the .more_text span */
+
+    });
+
+});
+
+</script>
+
 </html>
