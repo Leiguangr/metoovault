@@ -16,7 +16,10 @@
     "lite-server": "^2.3.0"
   },
   "dependencies": {
+    "crypto": "^1.0.1",
     "jquery": "^3.2.1",
-    "liteserver": "^0.3.0"
+    "liteserver": "^0.3.0",
+    "node-rsa": "^0.4.2",
+    "secp256k1": "^3.4.0"
   }
 }
