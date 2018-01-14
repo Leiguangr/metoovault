@@ -71,20 +71,7 @@ App = {
     encryptAndPersist: function(event) {
         event.preventDefault();
 
-        var petId = parseInt($(event.target).data('id'));
 
-        var message = document.getElementById("tellyourstory").value;
-
-        var encrypt = new JSEncrypt();
-        encrypt.setPublicKey($('#pubkey').val());
-        var encrypted = encrypt.encrypt($('#input').val());
-
-        // Decrypt with the private key...
-        var decrypt = new JSEncrypt();
-        decrypt.setPrivateKey($('#privkey').val());
-        var uncrypted = decrypt.decrypt(encrypted);
-
-        console.log(message);
 
         var vaultInstance;
 
@@ -94,12 +81,36 @@ App = {
             }
             var account = accounts[0];
 
-            console.log(account);
+            var pub1 = document.getElementById('Age1').value;
+            var pub2 = document.getElementById('Gender1').value;
+            var pub3 = document.getElementById('Ethnicity1').value;
+            var pub4 = document.getElementById('Sexual').value;
+            var pub5 = document.getElementById('Age').value;
+            var pub6 = document.getElementById('Gender').value;
+            var pub7 = document.getElementById('Ethnicity').value;
+            var pub8 = document.getElementById('Incident').value;
+            var pub9 = document.getElementById('Cities').value;
+            var pub10 = document.getElementById('Incident').value;
+            var pub11 = document.getElementById('Cities').value;
+
+
+            var private1 = document.getElementById('yourname').value;
+            var private2 = document.getElementById('nameofvictim').value;
+            var private3 = document.getElementById('nameofabuser').value;
+            var private4 = document.getElementById('cityofabuser').value;
+            var private5 = document.getElementById('tellyourstory').value;
+
+            var message = {story: [pub1, pub2, pub3, pub4,
+            pub5, pub6, pub7, pub8, pub9, pub10, pub11,
+            private1, private2, private3, private4, private5]};
+
+            var messageJson = JSON.stringify(message);
+
             var abiDefinition = JSON.parse('[{"constant":true,"inputs":[],"name":"getLatestTweet","outputs":[{"name":"tweetString","type":"string"},{"name":"timestamp","type":"uint256"},{"name":"numberOfTweets","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"tweetId","type":"uint256"}],"name":"getTweet","outputs":[{"name":"tweetString","type":"string"},{"name":"timestamp","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getNumberOfTweets","outputs":[{"name":"numberOfTweets","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"tweetString","type":"string"}],"name":"tweet","outputs":[{"name":"result","type":"int256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]');
             var VaultClass = web3.eth.contract(abiDefinition);
             var VaultInstance = VaultClass.at('0x901d35ab95269e0f777a6b2e284ff9e4f4ce367b');
-            VaultInstance.tweet(message, (error, result) => (console.log(result)));
-            
+            VaultInstance.tweet(messageJson, (error, result) => (console.log(result)));
+
            // myContract.(message).call({from: account}).then(console.log);
 
             /*

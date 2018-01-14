@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>MeToo Vault</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- new css -->
+    <link href="css/newcss.css" rel="stylesheet">
+    <!-- end of new css -->
+
+    <script src="bin/jsencrypt.min.js"></script>
+    <script src="js/crypto_lib/cryptico.js" type="text/javascript"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-push-2">
+            <h1 class="text-center">MeToo Vault </h1>
+            <hr/>
+            <br/>
+        </div>
+
+
+    </div>
+
+    <div id="petsRow" class="row">
+        <!-- PETS LOAD HERE -->
+    </div>
+</div>
+
+
+<div id="petTemplate" style="display: none;">
+
+    <div>
+        <div>
+            <p style="font-style: italic; color: #7E90A4;">I believe you.
+                I'm sorry this happened.
+                It's not your fault.
+                You are not alone.
+                Here you are safe.
+                You hold the only key and all the power in telling your story.</p>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="panel panel-default panel-pet">
+            <div class="panel-heading">
+                <h4 class="panel-title">General Information (optional)
+                </h4>
+                <input onclick="generatePassword()" type="button" value="Generate Password" id=GeneratePassword"></input>
+                <input class="inputbox" type="text" id="passphrase" name="passphrase" placeholder="Passphrase"><br>
+                <input onclick="encrypt()" type="button" value="Make Private" id=Encrypt"></input>
+            </div>
+
+
+
+            <div class="panel-body">
+
+                <div>
+                    <p style="font-style: bold; font-size: 20px;">Victim Information:</p>
+                    <div>
+                        Age at incident(s)<input class="inputbox-small" type="text" id="Age1" name="Age1" placeholder="">
+                        Gender<input class="inputbox-small" type="text" id="Gender1" name="Gender1" placeholder=""><br>
+
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        Ethnicity<input class="inputbox-small" type="text" id="Ethnicity1" name="Ethnicity1" placeholder="">
+                        Sexual orientation<input class="inputbox-small" type="text" id="Sexual" name="Sexual" placeholder=""><br>
+
+                    </div>
+
+                    <div class="item">
+
+                        <br/>
+                        <a href="#" class="read_more">&#43 Add victim</a><br/>
+
+                        <span class="more_text">
+                        </span>
+
+                    </div>
+                </div>
+
+                <!-- Abuser information -->
+
+                <div>
+                    <p style="font-style: bold; font-size: 20px;">Abuser Information:</p>
+                    <div>
+                        Age at incident(s)<input class="inputbox-small" type="text" id="Age" name="Age" placeholder="">
+                        Gender<input class="inputbox-small" type="text" id="Gender" name="Gender" placeholder=""><br>
+
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        Ethnicity<input class="inputbox-small" type="text" id="Ethnicity" name="Ethnicity" placeholder="">
+
+
+                    </div>
+
+                    <div class="item">
+
+                        <br/>
+                        <a href="#" class="read_more">&#43 Add abuser</a><br/>
+
+                        <span class="more_text">
+                        </span>
+
+                    </div>
+                </div>
+
+                <hr>
+                <div>
+
+                    <input class="inputbox" type="text" id="incident" name="incident" placeholder="Date(s) of Incident (MM/DD/YY)"><br>
+                    <input class="inputbox" type="text" id="Cities" name="Cities" placeholder="Cities of Incident. Comma separated"><br>
+                </div>
+
+                <form>
+
+                    <input type="checkbox" id="VerbalAbuse"> Verbal Abuse
+
+                    <input type="checkbox" id="PhysicalAssault"> Physical Assault
+
+                    <input type="checkbox" id="Molested"> Molested
+
+                    <input type="checkbox" id="Rape"> Rape
+                    <input type="checkbox" id="Other"> Other
+                    <input type="checkbox" id="DeclineToState"> Decline To State
+
+                </form>
+                <hr>
+
+                <form class="form2">
+                    <div class="inputbox">
+
+
+
+
+                        <input class="inputbox" type="text" id="yourname" name="yourname" placeholder="Your name"><br>
+                        <input class="inputbox" type="text" id="dateofincident" name="dateofincident" placeholder="Date(s) of incident"><br>
+                        <input class="inputbox" type="text" id="nameofvictim" name="nameofvictim" placeholder="Name of Victim(s)"><br>
+                        <input class="inputbox" type="text" id="nameofabuser" name="nameofabuser" placeholder="Name of Abusers(s)"><br>
+                        <input class="inputbox" type="text" id="cityofabuser" name="cityofabuser" placeholder="City of residence(s) of Abuser(s)"><br>
+                        <input class="inputbox" type="text" id="locationofincident" name="locationofincident" placeholder="Location(s) of Incident"><br>
+                        <input style="height: 700px;" class="inputbox" type="text" id="tellyourstory" name="tellyourstory" placeholder="Tell your story .... "><br>
+                    </div>
+
+
+                </form>
+
+
+                <button class="btn btn-default btn-adopt" type="button" data-id="0">Submit</button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/web3.min.js"></script>
+<script src="js/truffle-contract.js"></script>
+<script src="bin/keythereum.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    String.prototype.pick = function(min, max) {
+        var n, chars = '';
+
+        if (typeof max === 'undefined') {
+            n = min;
+        } else {
+            n = min + Math.floor(Math.random() * (max - min + 1));
+        }
+
+        for (var i = 0; i < n; i++) {
+            chars += this.charAt(Math.floor(Math.random() * this.length));
+        }
+
+        return chars;
+    };
+
+
+    // Credit to @Christoph: http://stackoverflow.com/a/962890/464744
+    String.prototype.shuffle = function() {
+        var array = this.split('');
+        var tmp, current, top = array.length;
+
+        if (top) while (--top) {
+            current = Math.floor(Math.random() * (top + 1));
+            tmp = array[current];
+            array[current] = array[top];
+            array[top] = tmp;
+        }
+
+        return array.join('');
+    };
+
+
+
+    //var PassPhrase = document.getElementById("passphrase").value;
+    //var private_key = cryptico.generateRSAKey(PassPhrase, Bits);
+    //var Bits = 256;
+    //var public_key = cryptico.publicKeyString(private_key);
+    //var message = document.getElementById("tellyourstory").value;
+
+    //var EncryptionResult = cryptico.encrypt(message, public_key);
+    //var DecryptionResult = cryptico.decrypt(EncryptionResult, private_key);
+
+    function generatePassword(){
+        var specials = '!@#$%^&*()_+{}:"<>?\|[];\',./`~';
+        var lowercase = 'abcdefghijklmnopqrstuvwxyz ';
+        var uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ ';
+        var numbers = '0123456789 ';
+
+        var all = specials + lowercase + uppercase + numbers;
+
+        var password = '';
+        password += specials.pick(5);
+        password += lowercase.pick(10);
+        password += uppercase.pick(10);
+        password += all.pick(3, 10);
+        password = password.shuffle();
+        document.getElementById("passphrase").value = password;
+    }
+
+    function encrypt() {
+        var PassPhrase = document.getElementById("passphrase").value;
+        var Bits = 512;
+        var private_key = cryptico.generateRSAKey(PassPhrase, Bits);
+        var public_key = cryptico.publicKeyString(private_key);
+        console.log(private_key);
+        console.log(public_key);
+
+        var message = document.getElementById('tellyourstory').value;
+        console.log(message);
+        console.log(public_key);
+
+        var EncryptionResult = cryptico.encrypt(message, public_key);
+        console.log(EncryptionResult)
+        document.getElementById('tellyourstory').value = EncryptionResult.cipher;
+    }
+
+    console.log("Encrypted Message:" + EncryptionResult);
+    console.log("Decrypted Message:" + DecryptionResult);
+</script>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
