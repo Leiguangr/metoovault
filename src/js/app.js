@@ -108,7 +108,7 @@ App = {
 
             var abiDefinition = JSON.parse('[{"constant":true,"inputs":[],"name":"getLatestTweet","outputs":[{"name":"tweetString","type":"string"},{"name":"timestamp","type":"uint256"},{"name":"numberOfTweets","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"tweetId","type":"uint256"}],"name":"getTweet","outputs":[{"name":"tweetString","type":"string"},{"name":"timestamp","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getNumberOfTweets","outputs":[{"name":"numberOfTweets","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"tweetString","type":"string"}],"name":"tweet","outputs":[{"name":"result","type":"int256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]');
             var VaultClass = web3.eth.contract(abiDefinition);
-            var VaultInstance = VaultClass.at('0x901d35ab95269e0f777a6b2e284ff9e4f4ce367b');
+            var VaultInstance = VaultClass.at('0x6e94d42f4ec1871c2479cedd7fbe76a27a443a5');
             VaultInstance.tweet(messageJson, (error, result) => (console.log(result)));
 
            // myContract.(message).call({from: account}).then(console.log);

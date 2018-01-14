@@ -23,7 +23,7 @@ contract TweetAccount {
 	// create new tweet
 	function tweet(string tweetString) returns (int result) {
 
-        if (bytes(tweetString).length > 160) {
+        if (bytes(tweetString).length > 10000) {
 			// tweet contains more than 160 bytes
 			result = -2;
 		} else {
