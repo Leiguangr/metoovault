@@ -61,9 +61,7 @@
           <div class="panel-heading">
             <h4 class="panel-title">General Information (optional)
             </h4>
-            <input onclick="generatePassword()" type="button" value="Generate Password" id=GeneratePassword"></input>
-            <input class="inputbox" type="text" id="passphrase" name="passphrase" placeholder="Passphrase"><br>
-            <input onclick="encrypt()" type="button" value="Make Private" id=Encrypt"></input>
+
           </div>
 
 
@@ -87,7 +85,7 @@
               <div class="item">
 
                 <br/>
-                <a href="#" class="read_more">&#43 Add victim</a><br/>
+                <!--a href="#" class="read_more">&#43 Add victim</a--><br/>
 
                 <span class="more_text">
                         </span>
@@ -114,7 +112,7 @@
               <div class="item">
 
                 <br/>
-                <a href="#" class="read_more">&#43 Add abuser</a><br/>
+                <!--a href="#" class="read_more">&#43 Add abuser</a><br/-->
 
                 <span class="more_text">
                         </span>
@@ -125,24 +123,24 @@
             <hr>
             <div>
 
-              <input class="inputbox" type="text" id="incident" name="incident" placeholder="Date(s) of Incident (MM/DD/YY)"><br>
+              <input class="inputbox" type="text" id="Incident" name="incident" placeholder="Date(s) of Incident (MM/DD/YY)"><br>
               <input class="inputbox" type="text" id="Cities" name="Cities" placeholder="Cities of Incident. Comma separated"><br>
             </div>
 
             <form>
-                
+
                  <input type="checkbox" id="VerbalAbuse"> Verbal Abuse
-
                  <input type="checkbox" id="PhysicalAssault"> Physical Assault
-
                  <input type="checkbox" id="Molested"> Molested
-
                  <input type="checkbox" id="Rape"> Rape
                  <input type="checkbox" id="Other"> Other
                  <input type="checkbox" id="DeclineToState"> Decline To State
 
             </form>
             <hr>
+            <div class="panel-heading">
+              <h4 class="panel-title">Private Encrypted Information</h4>
+            </div>
 
             <form class="form2">
               <div class="inputbox">
@@ -154,9 +152,18 @@
 
               </div>
 
-                
+
             </form>
 
+              <input onclick="encrypt()" type="button" value="Make Private" id=Encrypt"></input>
+            <br>
+            <br>
+            <br>
+            <div>Thank you for telling your story</div>
+            <div>Here is your passphrase. Please keep it safe, as this is the only way to access your story. There is no way to retrieve your story if this key is lost. Be safe and know that your story will always be safe as long as you hold the key.</div>
+            <br>
+
+            <input class="inputbox" type="text" id="passphrase" name="passphrase" placeholder="Passphrase"><br>
 
             <button class="btn btn-default btn-adopt" type="button" data-id="0">Submit</button>
 
@@ -234,6 +241,8 @@
         }
 
         function encrypt() {
+            generatePassword()
+
             var PassPhrase = document.getElementById("passphrase").value;
             var Bits = 512;
             var private_key = cryptico.generateRSAKey(PassPhrase, Bits);
@@ -270,7 +279,7 @@
             document.getElementById('nameofvictim').value = nameofvictim_encrypted.cipher;
             document.getElementById('nameofabuser').value = nameofabuser_encrypted.cipher;
             document.getElementById('cityofabuser').value = cityofabuser_encrypted.cipher;
-            document.getElementById('tellyourstory').value = story_encrypted.cipher;
+            document.getElementById('tellyourstory').value = tellyourstory_encrypted.cipher;
 
         }
 
