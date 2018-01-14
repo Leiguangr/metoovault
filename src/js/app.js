@@ -9,13 +9,7 @@ App = {
             var petTemplate = $('#petTemplate');
 
             for (i = 0; i < data.length; i ++) {
-                petTemplate.find('.panel-title').text(data[i].name);
-                petTemplate.find('img').attr('src', data[i].picture);
-                petTemplate.find('.pet-breed').text(data[i].breed);
-                petTemplate.find('.pet-age').text(data[i].age);
-                petTemplate.find('.pet-location').text(data[i].location);
                 petTemplate.find('.btn-adopt').attr('data-id', data[i].id);
-
                 petsRow.append(petTemplate.html());
             }
         });
@@ -74,7 +68,7 @@ App = {
         });
     },
 
-    handleAdopt: function(event) {
+    handleAdopt1: function(event) {
         event.preventDefault();
 
         var petId = parseInt($(event.target).data('id'));
@@ -98,6 +92,33 @@ App = {
                 console.log(err.message);
             });
         });
+    },
+
+
+    handleAdopt: function(event) {
+        event.preventDefault();
+
+        var petId = parseInt($(event.target).data('id'));
+        var adoptionInstance;
+        var message = document.getElementById("tellyourstory").value;
+
+        var params = { keyBytes: 32, ivBytes: 16 };
+        var dk = window.keythereum.create(params);
+
+        var private_key = dk.privateKey;
+        var public_key = dk.
+
+        var encrypt = new JSEncrypt();
+        encrypt.setPublicKey($('#pubkey').val());
+        var encrypted = encrypt.encrypt($('#input').val());
+
+        // Decrypt with the private key...
+        var decrypt = new JSEncrypt();
+        decrypt.setPrivateKey($('#privkey').val());
+        var uncrypted = decrypt.decrypt(encrypted);
+
+
+
     }
 
 };

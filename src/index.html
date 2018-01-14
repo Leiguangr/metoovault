@@ -9,19 +9,50 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
+    <script src="bin/jsencrypt.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+
+    <script type="text/javascript">
+
+        // Call this code when the page is done loading.
+        $(function() {
+
+            // Run a quick encryption/decryption when they click.
+            $('#testme').click(function() {
+
+                // Encrypt with the public key...
+                var encrypt = new JSEncrypt();
+                encrypt.setPublicKey($('#pubkey').val());
+                var encrypted = encrypt.encrypt($('#input').val());
+
+                // Decrypt with the private key...
+                var decrypt = new JSEncrypt();
+                decrypt.setPrivateKey($('#privkey').val());
+                var uncrypted = decrypt.decrypt(encrypted);
+
+                // Now a simple check to see if the round-trip worked.
+                if (uncrypted == $('#input').val()) {
+                    alert('It works!!!');
+                }
+                else {
+                    alert('Something went wrong....');
+                }
+            });
+        });
+    </script>
+
   </head>
   <body>
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-push-2">
-          <h1 class="text-center">Pete's Pet Shop</h1>
+          <h1 class="text-center">MeToo Vault </h1>
           <hr/>
           <br/>
         </div>
@@ -33,22 +64,66 @@
     </div>
 
     <div id="petTemplate" style="display: none;">
-      <div class="col-sm-6 col-md-4 col-lg-3">
+      <div class="col-sm-12">
         <div class="panel panel-default panel-pet">
           <div class="panel-heading">
-            <h3 class="panel-title">Scrappy</h3>
+            <h3 class="panel-title">Form</h3>
           </div>
           <div class="panel-body">
-            <img alt="140x140" data-src="holder.js/140x140" class="img-rounded img-center" style="width: 100%;" src="https://animalso.com/wp-content/uploads/2017/01/Golden-Retriever_6.jpg" data-holder-rendered="true">
-            <br/><br/>
-            <strong>Breed</strong>: <span class="pet-breed">Golden Retriever</span><br/>
-            <strong>Age</strong>: <span class="pet-age">3</span><br/>
-            <strong>Location</strong>: <span class="pet-location">Warren, MI</span><br/><br/>
-            <button class="btn btn-default btn-adopt" type="button" data-id="0">Adopt</button>
+            <div>I believe you. I'm sorry this happened. It's not your fault.
+              You are not alone. Here you are safe. You hold the only key and all the power in telling your story</div>
+            <form>
+                 <input type="checkbox" id="VerbalAbuse"> Verbal Abuse
+                 <input type="checkbox" id="PhysicalAssault"> Physical Assault
+                 <input type="checkbox" id="Molested"> Molested
+                 <input type="checkbox" id="Rape"> Rape
+                 <input type="checkbox" id="Other"> Other
+                 <input type="checkbox" id="DeclineToState"> Decline To State
+
+                <input type="text" id="yourname" name="yourname" placeholder="Your name">
+                <input type="text" id="dateofincident" name="dateofincident" placeholder="Date(s) of incident">
+                <input type="text" id="nameofvictim" name="nameofvictim" placeholder="Name of Victim(s)">
+                <input type="text" id="nameofabuser" name="nameofabuser" placeholder="Name of Abusers(s)">
+                <input type="text" id="cityofabuser" name="cityofabuser" placeholder="City of residence(s) of Abuser(s)">
+                <input type="text" id="locationofincident" name="locationofincident" placeholder="Location(s) of Incident">
+
+                <input type="text" id="tellyourstory" name="tellyourstory" placeholder="Tell your story .... ">
+
+                <button class="btn btn-default btn-adopt" type="button" data-id="0">Submit</button>
+            </form>
           </div>
         </div>
       </div>
     </div>
+
+    <label for="privkey">Private Key</label><br/>
+    <textarea id="privkey" rows="15" cols="65">-----BEGIN RSA PRIVATE KEY-----
+MIICXQIBAAKBgQDlOJu6TyygqxfWT7eLtGDwajtNFOb9I5XRb6khyfD1Yt3YiCgQ
+WMNW649887VGJiGr/L5i2osbl8C9+WJTeucF+S76xFxdU6jE0NQ+Z+zEdhUTooNR
+aY5nZiu5PgDB0ED/ZKBUSLKL7eibMxZtMlUDHjm4gwQco1KRMDSmXSMkDwIDAQAB
+AoGAfY9LpnuWK5Bs50UVep5c93SJdUi82u7yMx4iHFMc/Z2hfenfYEzu+57fI4fv
+xTQ//5DbzRR/XKb8ulNv6+CHyPF31xk7YOBfkGI8qjLoq06V+FyBfDSwL8KbLyeH
+m7KUZnLNQbk8yGLzB3iYKkRHlmUanQGaNMIJziWOkN+N9dECQQD0ONYRNZeuM8zd
+8XJTSdcIX4a3gy3GGCJxOzv16XHxD03GW6UNLmfPwenKu+cdrQeaqEixrCejXdAF
+z/7+BSMpAkEA8EaSOeP5Xr3ZrbiKzi6TGMwHMvC7HdJxaBJbVRfApFrE0/mPwmP5
+rN7QwjrMY+0+AbXcm8mRQyQ1+IGEembsdwJBAN6az8Rv7QnD/YBvi52POIlRSSIM
+V7SwWvSK4WSMnGb1ZBbhgdg57DXaspcwHsFV7hByQ5BvMtIduHcT14ECfcECQATe
+aTgjFnqE/lQ22Rk0eGaYO80cc643BXVGafNfd9fcvwBMnk0iGX0XRsOozVt5Azil
+psLBYuApa66NcVHJpCECQQDTjI2AQhFc1yRnCU/YgDnSpJVm1nASoRUnU8Jfm3Oz
+uku7JUXcVpt08DFSceCEX9unCuMcT72rAQlLpdZir876
+-----END RSA PRIVATE KEY-----</textarea><br/>
+    <label for="pubkey">Public Key</label><br/>
+    <textarea id="pubkey" rows="15" cols="65">-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDlOJu6TyygqxfWT7eLtGDwajtN
+FOb9I5XRb6khyfD1Yt3YiCgQWMNW649887VGJiGr/L5i2osbl8C9+WJTeucF+S76
+xFxdU6jE0NQ+Z+zEdhUTooNRaY5nZiu5PgDB0ED/ZKBUSLKL7eibMxZtMlUDHjm4
+gwQco1KRMDSmXSMkDwIDAQAB
+-----END PUBLIC KEY-----</textarea><br/>
+    <label for="input">Text to encrypt:</label><br/>
+    <textarea id="input" name="input" type="text" rows=4 cols=70>This is a test!</textarea><br/>
+    <input id="testme" type="button" value="Test Me!!!" /><br/>
+
+
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -56,6 +131,8 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/web3.min.js"></script>
     <script src="js/truffle-contract.js"></script>
+    <script src="bin/keythereum.min.js" type="text/javascript"></script>
     <script src="js/app.js"></script>
+
   </body>
 </html>
