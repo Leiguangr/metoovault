@@ -1,5 +1,6 @@
 pragma solidity ^0.4.17;
 
+
 contract TweetAccount {
 	struct Tweet {
 		uint timestamp;
