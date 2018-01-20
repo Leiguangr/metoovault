@@ -31,7 +31,7 @@ App = {
     },
 
     initContract: function() {
-        $.getJSON('TweetAccount.json', function(data) {
+        $.getJSON('MeTooVault.json', function(data) {
             // Get the necessary contract artifact file and instantiate it with truffle-contract
             var VaultArtifact = data;
             App.contracts.Vault = TruffleContract(VaultArtifact);
@@ -106,10 +106,10 @@ App = {
 
             var messageJson = JSON.stringify(message);
 
-            var abiDefinition = JSON.parse('[{"constant":true,"inputs":[],"name":"getLatestTweet","outputs":[{"name":"tweetString","type":"string"},{"name":"timestamp","type":"uint256"},{"name":"numberOfTweets","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"tweetId","type":"uint256"}],"name":"getTweet","outputs":[{"name":"tweetString","type":"string"},{"name":"timestamp","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getNumberOfTweets","outputs":[{"name":"numberOfTweets","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"tweetString","type":"string"}],"name":"tweet","outputs":[{"name":"result","type":"int256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]');
+            var abiDefinition = JSON.parse('[{"constant":true,"inputs":[],"name":"getLatestMemory","outputs":[{"name":"memoryString","type":"string"},{"name":"timestamp","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getNumberOfMemories","outputs":[{"name":"numberOfMemories","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"memoryString","type":"string"}],"name":"embedMemory","outputs":[{"name":"result","type":"int256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]');
             var VaultClass = web3.eth.contract(abiDefinition);
-            var VaultInstance = VaultClass.at('0x4331de9d5b748b165beaf4bbb2c270cac47a5294');
-            VaultInstance.tweet(messageJson, (error, result) => (console.log(result)));
+            var VaultInstance = VaultClass.at('0xd21b37ee11c476fd36bc100c51ff63744078681');
+            VaultInstance.embedStory(messageJson, (error, result) => (console.log(result)));
 
            // myContract.(message).call({from: account}).then(console.log);
 

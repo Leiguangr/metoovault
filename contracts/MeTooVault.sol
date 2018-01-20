@@ -1,4 +1,4 @@
-pragma solidity ^0.4.17;
+pragma solidity ^0.4.18;
 
 //noinspection ALL
 contract MeTooVault {
@@ -8,50 +8,48 @@ contract MeTooVault {
 		string memoryString;
 	}
 
-	mapping (uint => Memory) _memories;
-    mapping (string => uint) memoryid_lookup;
+    uint _numberOfMemories;
 
-    string last_hash;
+	mapping (string => Memory[]) _memories;
+	mapping (address => string[]) address_to_pass;
 
 
 	function MeTooVault() {
-		last_hash = "uninitialized";
+	    _numberOfMemories = 0;
 	}
 
-	function embedMemory(string memoryString) returns (int result) {
-        account_hash = 
+	function embedMemory(string accountId, string memoryString) returns (int result) {
         if (bytes(memoryString).length > 10000) {
 			result = -2;
 		} else {
-			_memories[_numberOfMemories].timestamp = now;
-			_memories[_numberOfMemories].memoryString = memoryString;
-			_numberOfMemories++;
-			result = 0; // success
+		    Memory memory _memory;
+            _memory.timestamp = now;
+            _memory.memoryString = memoryString;
+            _memories[accountId].push(_memory);
+			_numberOfMemories+=1;
+			result = 0;
 		}
 	}
 
-	function getMemory(string memoryHash) constant returns (string memoryString, uint timestamp) {
-		// returns two values
-		memoryString = _memories[memoryHash].memoryString;
-		timestamp = _memories[memoryHash].timestamp;
+	function getLatestMemory(string accountId) constant returns (string memoryString, uint timestamp) {
+		if (_memories[accountId].length > 0)
+		{
+		    return (_memories[accountId][0].memoryString, _memories[accountId][0].timestamp);
+		}
 	}
 
-	function getLatestMemory() constant returns (string memoryString, uint timestamp, uint numberOfMemories) {
-		// returns three values
-        if(keccak256(last_hash) == keccak256("uninitialized")){
-            memoryString = "Nothing";
-            timestamp = 0;
-            _numberOfMemories = 0;
-        }
-        else{
-            memoryString = _memories[last_hash].memoryString;
-            timestamp = _memories[last_hash].timestamp;
-            numberOfMemories = _numberOfMemories;
-        }
-
-	}
+	function getLatestMemory(string address) constant returns (Memory[] memories) {
+    		if (_memories[address].length > 0)
+    		{
+    		    return _memories[address]
+    		}
+    }
 
 	function getNumberOfMemories() constant returns (uint numberOfMemories) {
+		return _numberOfMemories;
+	}
+
+	function getGlobalNumberOfMemories() constant returns (uint numberOfMemories) {
 		return _numberOfMemories;
 	}
 
