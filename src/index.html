@@ -13,9 +13,14 @@
     <!-- new css -->
     <link href="css/newcss.css" rel="stylesheet">
     <!-- end of new css -->
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="bin/jsencrypt.min.js"></script>
     <script src="js/crypto_lib/cryptico.js" type="text/javascript"></script>
+
+
+   <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -59,26 +64,75 @@
       <div class="col-sm-12">
         <div class="panel panel-default panel-pet">
           <div class="panel-heading">
-            <h4 class="panel-title">General Information (optional)
-            </h4>
+            <div class="panel-title">General Information (optional)
+            
 
+
+            <input type="checkbox" name="make private" value="make private"> Make Private
+            </div>
           </div>
-
-
-
           <div class="panel-body">
+        <div>
+          <p>How are you related to the abuse?
+          <input type="checkbox" name="victim" value="Bike"> Victim
+          <input type="checkbox" name="witness" value="Bike"> Witness
+          <input type="checkbox" name="ally" value="Bike"> Ally 
+          
+            <a href="#" data-toggle="tooltip" data-placement="left" title="
+            Victim: Person who was abused.
+            Witness: Viewed the abuse occuring, but was not themselves abused.
+            Ally: Was told of the abuse, but not there to witness.
+            Gender: Famal, Male, Gender Fluid, Transexual, Other
+            Sexual Orientation: Heterosexual, Gay, Bi-sexual, Other">
+              <i style="font-size:24px" class="fa">&#xf05a;</i>
+            </a>
+            
+          </p>
+        </div>
+
+
+          
 
             <div>
               <p style="font-style: bold; font-size: 20px;">Victim Information:</p>
+
+
+
               <div>
                 Age at incident(s)<input class="inputbox-small" type="text" id="Age1" name="Age1" placeholder="">
-                Gender<input class="inputbox-small" type="text" id="Gender1" name="Gender1" placeholder=""><br>
+                Gender
+                <select name="" id="">
+                <option value=""> </option>
+                <option value=""> Female</option>
+                <option value=""> Meale</option>
+                <option value=""> Gender Fluid</option>
+                <option value=""> Transexual</option>
+                <option value=""> Other</option>
+                </select>
+                <br>
 
               </div>
 
               <div style="margin-top: 20px;">
-                Ethnicity<input class="inputbox-small" type="text" id="Ethnicity1" name="Ethnicity1" placeholder="">
-                Sexual orientation<input class="inputbox-small" type="text" id="Sexual" name="Sexual" placeholder=""><br>
+                Ethnicity
+                <select name="" id="">
+                <option value=""> </option>
+                <option value=""> American Indian or Alaska Native</option>
+                <option value=""> Asian</option>
+                <option value=""> Black or African American</option>
+                <option value=""> Native Hawaiian or Other Pacific Islander</option>
+                <option value=""> White</option>
+                <option value=""> Hispanic or Latino</option>
+                <option value=""> Not Hispanic or Latino</option>
+                </select>
+                Sexual orientation
+                <select name="" id="">
+                <option value=""> </option>
+                <option value=""> Heterosexual</option>
+                <option value=""> Gay</option>
+                <option value=""> Bi-sexual</option>
+                <option value=""> Other</option>
+                </select><br>
 
               </div>
 
@@ -99,12 +153,38 @@
               <p style="font-style: bold; font-size: 20px;">Abuser Information:</p>
               <div>
                 Age at incident(s)<input class="inputbox-small" type="text" id="Age" name="Age" placeholder="">
-                Gender<input class="inputbox-small" type="text" id="Gender" name="Gender" placeholder=""><br>
+                Gender
+                <select name="" id="">
+                <option value=""> </option>
+                <option value=""> Female</option>
+                <option value=""> Meale</option>
+                <option value=""> Gender Fluid</option>
+                <option value=""> Transexual</option>
+                <option value=""> Other</option>
+                </select><br>
 
               </div>
 
               <div style="margin-top: 20px;">
-                Ethnicity<input class="inputbox-small" type="text" id="Ethnicity" name="Ethnicity" placeholder="">
+                Ethnicity
+                <select name="" id="">
+                <option value=""> </option>
+                <option value=""> American Indian or Alaska Native</option>
+                <option value=""> Asian</option>
+                <option value=""> Black or African American</option>
+                <option value=""> Native Hawaiian or Other Pacific Islander</option>
+                <option value=""> White</option>
+                <option value=""> Hispanic or Latino</option>
+                <option value=""> Not Hispanic or Latino</option>
+                </select>
+                Sexual orientation
+                <select name="" id="">
+                <option value=""> </option>
+                <option value=""> Heterosexual</option>
+                <option value=""> Gay</option>
+                <option value=""> Bi-sexual</option>
+                <option value=""> Other</option>
+                </select><br>
 
 
               </div>
@@ -286,7 +366,15 @@
         //console.log("Decrypted Message:" + DecryptionResult);
     </script>
 
-    <script src="js/app.js"></script>
+    <script src="js/app.js">
+      
+
+      <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
+    </script>
 
   </body>
 </html>
