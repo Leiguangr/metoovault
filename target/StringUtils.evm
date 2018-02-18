@@ -1,0 +1,267 @@
+    /* "contracts/StringUtils.sol":1119:1617  library StringUtils {... */
+  mstore(0x40, 0x60)
+  jumpi(tag_1, iszero(callvalue))
+  0x0
+  dup1
+  revert
+tag_1:
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x0
+  codecopy
+  0x0
+  return
+stop
+
+sub_0: assembly {
+        /* "contracts/StringUtils.sol":1119:1617  library StringUtils {... */
+      mstore(0x40, 0x60)
+      jumpi(tag_1, lt(calldatasize, 0x4))
+      calldataload(0x0)
+      0x100000000000000000000000000000000000000000000000000000000
+      swap1
+      div
+      0xffffffff
+      and
+      dup1
+      0x81a33a6f
+      eq
+      tag_2
+      jumpi
+      dup1
+      0x94e8767d
+      eq
+      tag_3
+      jumpi
+    tag_1:
+      0x0
+      dup1
+      revert
+        /* "contracts/StringUtils.sol":1502:1610  function bytesToUInt(bytes32 v) constant returns (uint ret) {... */
+    tag_2:
+      tag_4
+      0x4
+      dup1
+      dup1
+      calldataload
+      not(0x0)
+      and
+      swap1
+      0x20
+      add
+      swap1
+      swap2
+      swap1
+      pop
+      pop
+      jump(tag_5)
+    tag_4:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "contracts/StringUtils.sol":1263:1371  function uintToBytes(uint v) constant returns (bytes32 ret) {... */
+    tag_3:
+      tag_6
+      0x4
+      dup1
+      dup1
+      calldataload
+      swap1
+      0x20
+      add
+      swap1
+      swap2
+      swap1
+      pop
+      pop
+      jump(tag_7)
+    tag_6:
+      mload(0x40)
+      dup1
+      dup3
+      not(0x0)
+      and
+      not(0x0)
+      and
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "contracts/StringUtils.sol":1502:1610  function bytesToUInt(bytes32 v) constant returns (uint ret) {... */
+    tag_5:
+        /* "contracts/StringUtils.sol":1552:1560  uint ret */
+      0x0
+        /* "contracts/StringUtils.sol":1579:1588  StringLib */
+      linkerSymbol("a1a28301a0c3a1a0a3f7b8f1e53fe40bd9ce601c879895fdb28f09acc46d6fed")
+        /* "contracts/StringUtils.sol":1579:1600  StringLib.bytesToUInt */
+      0x81a33a6f
+        /* "contracts/StringUtils.sol":1601:1602  v */
+      dup4
+        /* "contracts/StringUtils.sol":1579:1603  StringLib.bytesToUInt(v) */
+      mstore(add(0x20, mload(0x40)), 0x0)
+      mload(0x40)
+      dup3
+      0xffffffff
+      and
+      0x100000000000000000000000000000000000000000000000000000000
+      mul
+      dup2
+      mstore
+      0x4
+      add
+      dup1
+      dup3
+      not(0x0)
+      and
+      not(0x0)
+      and
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      0x20
+      mload(0x40)
+      dup1
+      dup4
+      sub
+      dup2
+      dup7
+      dup1
+      extcodesize
+      iszero
+      iszero
+      tag_9
+      jumpi
+      0x0
+      dup1
+      revert
+    tag_9:
+      sub(gas, 0x2c6)
+      delegatecall
+      iszero
+      iszero
+      tag_10
+      jumpi
+      0x0
+      dup1
+      revert
+    tag_10:
+      pop
+      pop
+      pop
+      mload(0x40)
+      dup1
+      mload
+      swap1
+      pop
+        /* "contracts/StringUtils.sol":1572:1603  return StringLib.bytesToUInt(v) */
+      swap1
+      pop
+        /* "contracts/StringUtils.sol":1502:1610  function bytesToUInt(bytes32 v) constant returns (uint ret) {... */
+      swap2
+      swap1
+      pop
+      jump	// out
+        /* "contracts/StringUtils.sol":1263:1371  function uintToBytes(uint v) constant returns (bytes32 ret) {... */
+    tag_7:
+        /* "contracts/StringUtils.sol":1310:1321  bytes32 ret */
+      0x0
+        /* "contracts/StringUtils.sol":1340:1349  StringLib */
+      linkerSymbol("a1a28301a0c3a1a0a3f7b8f1e53fe40bd9ce601c879895fdb28f09acc46d6fed")
+        /* "contracts/StringUtils.sol":1340:1361  StringLib.uintToBytes */
+      0x94e8767d
+        /* "contracts/StringUtils.sol":1362:1363  v */
+      dup4
+        /* "contracts/StringUtils.sol":1340:1364  StringLib.uintToBytes(v) */
+      mstore(add(0x20, mload(0x40)), 0x0)
+      mload(0x40)
+      dup3
+      0xffffffff
+      and
+      0x100000000000000000000000000000000000000000000000000000000
+      mul
+      dup2
+      mstore
+      0x4
+      add
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      0x20
+      mload(0x40)
+      dup1
+      dup4
+      sub
+      dup2
+      dup7
+      dup1
+      extcodesize
+      iszero
+      iszero
+      tag_12
+      jumpi
+      0x0
+      dup1
+      revert
+    tag_12:
+      sub(gas, 0x2c6)
+      delegatecall
+      iszero
+      iszero
+      tag_13
+      jumpi
+      0x0
+      dup1
+      revert
+    tag_13:
+      pop
+      pop
+      pop
+      mload(0x40)
+      dup1
+      mload
+      swap1
+      pop
+        /* "contracts/StringUtils.sol":1333:1364  return StringLib.uintToBytes(v) */
+      swap1
+      pop
+        /* "contracts/StringUtils.sol":1263:1371  function uintToBytes(uint v) constant returns (bytes32 ret) {... */
+      swap2
+      swap1
+      pop
+      jump	// out
+
+    auxdata: 0xa165627a7a723058206313892cadb864f21a108d69f5bade0ce6954a62e25a4e64045851f781b81cc20029
+}

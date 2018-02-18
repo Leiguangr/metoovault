@@ -1,0 +1,25 @@
+    /* "contracts/strings.sol":26:22824  library strings {... */
+  mstore(0x40, 0x60)
+  jumpi(tag_1, iszero(callvalue))
+  0x0
+  dup1
+  revert
+tag_1:
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x0
+  codecopy
+  0x0
+  return
+stop
+
+sub_0: assembly {
+        /* "contracts/strings.sol":26:22824  library strings {... */
+      mstore(0x40, 0x60)
+      0x0
+      dup1
+      revert
+
+    auxdata: 0xa165627a7a723058209c343ac97e21816196e98d2b272855d6401f97ceb129a6c80c45b22a0073b05a0029
+}

@@ -1,0 +1,449 @@
+ContractDefinition "StringLib"
+   Source: "library StringLib {\n    /// @dev Converts an unsigned integert to its string representation.\n    /// @param v The number to be converted.\n    function uintToBytes(uint v) constant returns (bytes32 ret) {\n        if (v == 0) {\n            ret = '0';\n        }\n        else {\n            while (v > 0) {\n                ret = bytes32(uint(ret) / (2 ** 8));\n                ret |= bytes32(((v % 10) + 48) * 2 ** (8 * 31));\n                v /= 10;\n            }\n        }\n        return ret;\n    }\n\n    /// @dev Converts a numeric string to it's unsigned integer representation.\n    /// @param v The string to be converted.\n    function bytesToUInt(bytes32 v) constant returns (uint ret) {\n        if (v == 0x0) {\n            throw;\n        }\n\n        uint digit;\n\n        for (uint i = 0; i < 32; i++) {\n            digit = uint((uint(v) / (2 ** (8 * (31 - i)))) & 0xff);\n            if (digit == 0) {\n                break;\n            }\n            else if (digit < 48 || digit > 57) {\n                throw;\n            }\n            ret *= 10;\n            ret += (digit - 48);\n        }\n        return ret;\n    }\n}"
+  FunctionDefinition "uintToBytes" - public - const
+     Source: "function uintToBytes(uint v) constant returns (bytes32 ret) {\n        if (v == 0) {\n            ret = '0';\n        }\n        else {\n            while (v > 0) {\n                ret = bytes32(uint(ret) / (2 ** 8));\n                ret |= bytes32(((v % 10) + 48) * 2 ** (8 * 31));\n                v /= 10;\n            }\n        }\n        return ret;\n    }"
+    ParameterList
+       Source: "(uint v)"
+      VariableDeclaration "v"
+         Type: uint256
+         Source: "uint v"
+        ElementaryTypeName uint
+           Source: "uint"
+    ParameterList
+       Source: "(bytes32 ret)"
+      VariableDeclaration "ret"
+         Type: bytes32
+         Source: "bytes32 ret"
+        ElementaryTypeName bytes32
+           Source: "bytes32"
+    Block
+       Source: "{\n        if (v == 0) {\n            ret = '0';\n        }\n        else {\n            while (v > 0) {\n                ret = bytes32(uint(ret) / (2 ** 8));\n                ret |= bytes32(((v % 10) + 48) * 2 ** (8 * 31));\n                v /= 10;\n            }\n        }\n        return ret;\n    }"
+      IfStatement
+         Source: "if (v == 0) {\n            ret = '0';\n        }\n        else {\n            while (v > 0) {\n                ret = bytes32(uint(ret) / (2 ** 8));\n                ret |= bytes32(((v % 10) + 48) * 2 ** (8 * 31));\n                v /= 10;\n            }\n        }"
+        BinaryOperation using operator ==
+           Type: bool
+           Source: "v == 0"
+          Identifier v
+             Type: uint256
+             Source: "v"
+          Literal, token: [no token] value: 0
+             Type: int_const 0
+             Source: "0"
+        Block
+           Source: "{\n            ret = '0';\n        }"
+          ExpressionStatement
+             Source: "ret = '0'"
+            Assignment using operator =
+               Type: bytes32
+               Source: "ret = '0'"
+              Identifier ret
+                 Type: bytes32
+                 Source: "ret"
+              Literal, token: [no token] value: 0
+                 Type: literal_string "0"
+                 Source: "'0'"
+        Block
+           Source: "{\n            while (v > 0) {\n                ret = bytes32(uint(ret) / (2 ** 8));\n                ret |= bytes32(((v % 10) + 48) * 2 ** (8 * 31));\n                v /= 10;\n            }\n        }"
+          WhileStatement
+             Source: "while (v > 0) {\n                ret = bytes32(uint(ret) / (2 ** 8));\n                ret |= bytes32(((v % 10) + 48) * 2 ** (8 * 31));\n                v /= 10;\n            }"
+            BinaryOperation using operator >
+               Type: bool
+               Source: "v > 0"
+              Identifier v
+                 Type: uint256
+                 Source: "v"
+              Literal, token: [no token] value: 0
+                 Type: int_const 0
+                 Source: "0"
+            Block
+               Source: "{\n                ret = bytes32(uint(ret) / (2 ** 8));\n                ret |= bytes32(((v % 10) + 48) * 2 ** (8 * 31));\n                v /= 10;\n            }"
+              ExpressionStatement
+                 Source: "ret = bytes32(uint(ret) / (2 ** 8))"
+                Assignment using operator =
+                   Type: bytes32
+                   Source: "ret = bytes32(uint(ret) / (2 ** 8))"
+                  Identifier ret
+                     Type: bytes32
+                     Source: "ret"
+                  FunctionCall
+                     Type: bytes32
+                     Source: "bytes32(uint(ret) / (2 ** 8))"
+                    ElementaryTypeNameExpression bytes32
+                       Type: type(bytes32)
+                       Source: "bytes32"
+                    BinaryOperation using operator /
+                       Type: uint256
+                       Source: "uint(ret) / (2 ** 8)"
+                      FunctionCall
+                         Type: uint256
+                         Source: "uint(ret)"
+                        ElementaryTypeNameExpression uint
+                           Type: type(uint256)
+                           Source: "uint"
+                        Identifier ret
+                           Type: bytes32
+                           Source: "ret"
+                      TupleExpression
+                         Type: int_const 256
+                         Source: "(2 ** 8)"
+                        BinaryOperation using operator **
+                           Type: int_const 256
+                           Source: "2 ** 8"
+                          Literal, token: [no token] value: 2
+                             Type: int_const 2
+                             Source: "2"
+                          Literal, token: [no token] value: 8
+                             Type: int_const 8
+                             Source: "8"
+              ExpressionStatement
+                 Source: "ret |= bytes32(((v % 10) + 48) * 2 ** (8 * 31))"
+                Assignment using operator |=
+                   Type: bytes32
+                   Source: "ret |= bytes32(((v % 10) + 48) * 2 ** (8 * 31))"
+                  Identifier ret
+                     Type: bytes32
+                     Source: "ret"
+                  FunctionCall
+                     Type: bytes32
+                     Source: "bytes32(((v % 10) + 48) * 2 ** (8 * 31))"
+                    ElementaryTypeNameExpression bytes32
+                       Type: type(bytes32)
+                       Source: "bytes32"
+                    BinaryOperation using operator *
+                       Type: uint256
+                       Source: "((v % 10) + 48) * 2 ** (8 * 31)"
+                      TupleExpression
+                         Type: uint256
+                         Source: "((v % 10) + 48)"
+                        BinaryOperation using operator +
+                           Type: uint256
+                           Source: "(v % 10) + 48"
+                          TupleExpression
+                             Type: uint256
+                             Source: "(v % 10)"
+                            BinaryOperation using operator %
+                               Type: uint256
+                               Source: "v % 10"
+                              Identifier v
+                                 Type: uint256
+                                 Source: "v"
+                              Literal, token: [no token] value: 10
+                                 Type: int_const 10
+                                 Source: "10"
+                          Literal, token: [no token] value: 48
+                             Type: int_const 48
+                             Source: "48"
+                      BinaryOperation using operator **
+                         Type: int_const 452312848583266388373324160190187140051835877600158453279131187530910662656
+                         Source: "2 ** (8 * 31)"
+                        Literal, token: [no token] value: 2
+                           Type: int_const 2
+                           Source: "2"
+                        TupleExpression
+                           Type: int_const 248
+                           Source: "(8 * 31)"
+                          BinaryOperation using operator *
+                             Type: int_const 248
+                             Source: "8 * 31"
+                            Literal, token: [no token] value: 8
+                               Type: int_const 8
+                               Source: "8"
+                            Literal, token: [no token] value: 31
+                               Type: int_const 31
+                               Source: "31"
+              ExpressionStatement
+                 Source: "v /= 10"
+                Assignment using operator /=
+                   Type: uint256
+                   Source: "v /= 10"
+                  Identifier v
+                     Type: uint256
+                     Source: "v"
+                  Literal, token: [no token] value: 10
+                     Type: int_const 10
+                     Source: "10"
+      Return
+         Source: "return ret"
+        Identifier ret
+           Type: bytes32
+           Source: "ret"
+  FunctionDefinition "bytesToUInt" - public - const
+     Source: "function bytesToUInt(bytes32 v) constant returns (uint ret) {\n        if (v == 0x0) {\n            throw;\n        }\n\n        uint digit;\n\n        for (uint i = 0; i < 32; i++) {\n            digit = uint((uint(v) / (2 ** (8 * (31 - i)))) & 0xff);\n            if (digit == 0) {\n                break;\n            }\n            else if (digit < 48 || digit > 57) {\n                throw;\n            }\n            ret *= 10;\n            ret += (digit - 48);\n        }\n        return ret;\n    }"
+    ParameterList
+       Source: "(bytes32 v)"
+      VariableDeclaration "v"
+         Type: bytes32
+         Source: "bytes32 v"
+        ElementaryTypeName bytes32
+           Source: "bytes32"
+    ParameterList
+       Source: "(uint ret)"
+      VariableDeclaration "ret"
+         Type: uint256
+         Source: "uint ret"
+        ElementaryTypeName uint
+           Source: "uint"
+    Block
+       Source: "{\n        if (v == 0x0) {\n            throw;\n        }\n\n        uint digit;\n\n        for (uint i = 0; i < 32; i++) {\n            digit = uint((uint(v) / (2 ** (8 * (31 - i)))) & 0xff);\n            if (digit == 0) {\n                break;\n            }\n            else if (digit < 48 || digit > 57) {\n                throw;\n            }\n            ret *= 10;\n            ret += (digit - 48);\n        }\n        return ret;\n    }"
+      IfStatement
+         Source: "if (v == 0x0) {\n            throw;\n        }"
+        BinaryOperation using operator ==
+           Type: bool
+           Source: "v == 0x0"
+          Identifier v
+             Type: bytes32
+             Source: "v"
+          Literal, token: [no token] value: 0x0
+             Type: int_const 0
+             Source: "0x0"
+        Block
+           Source: "{\n            throw;\n        }"
+          Throw
+             Source: "throw"
+      VariableDeclarationStatement
+         Source: "uint digit"
+        VariableDeclaration "digit"
+           Type: uint256
+           Source: "uint digit"
+          ElementaryTypeName uint
+             Source: "uint"
+      ForStatement
+         Source: "for (uint i = 0; i < 32; i++) {\n            digit = uint((uint(v) / (2 ** (8 * (31 - i)))) & 0xff);\n            if (digit == 0) {\n                break;\n            }\n            else if (digit < 48 || digit > 57) {\n                throw;\n            }\n            ret *= 10;\n            ret += (digit - 48);\n        }"
+        VariableDeclarationStatement
+           Source: "uint i = 0"
+          VariableDeclaration "i"
+             Type: uint256
+             Source: "uint i"
+            ElementaryTypeName uint
+               Source: "uint"
+          Literal, token: [no token] value: 0
+             Type: int_const 0
+             Source: "0"
+        BinaryOperation using operator <
+           Type: bool
+           Source: "i < 32"
+          Identifier i
+             Type: uint256
+             Source: "i"
+          Literal, token: [no token] value: 32
+             Type: int_const 32
+             Source: "32"
+        ExpressionStatement
+           Source: "i++"
+          UnaryOperation (postfix) ++
+             Type: uint256
+             Source: "i++"
+            Identifier i
+               Type: uint256
+               Source: "i"
+        Block
+           Source: "{\n            digit = uint((uint(v) / (2 ** (8 * (31 - i)))) & 0xff);\n            if (digit == 0) {\n                break;\n            }\n            else if (digit < 48 || digit > 57) {\n                throw;\n            }\n            ret *= 10;\n            ret += (digit - 48);\n        }"
+          ExpressionStatement
+             Source: "digit = uint((uint(v) / (2 ** (8 * (31 - i)))) & 0xff)"
+            Assignment using operator =
+               Type: uint256
+               Source: "digit = uint((uint(v) / (2 ** (8 * (31 - i)))) & 0xff)"
+              Identifier digit
+                 Type: uint256
+                 Source: "digit"
+              FunctionCall
+                 Type: uint256
+                 Source: "uint((uint(v) / (2 ** (8 * (31 - i)))) & 0xff)"
+                ElementaryTypeNameExpression uint
+                   Type: type(uint256)
+                   Source: "uint"
+                BinaryOperation using operator &
+                   Type: uint256
+                   Source: "(uint(v) / (2 ** (8 * (31 - i)))) & 0xff"
+                  TupleExpression
+                     Type: uint256
+                     Source: "(uint(v) / (2 ** (8 * (31 - i))))"
+                    BinaryOperation using operator /
+                       Type: uint256
+                       Source: "uint(v) / (2 ** (8 * (31 - i)))"
+                      FunctionCall
+                         Type: uint256
+                         Source: "uint(v)"
+                        ElementaryTypeNameExpression uint
+                           Type: type(uint256)
+                           Source: "uint"
+                        Identifier v
+                           Type: bytes32
+                           Source: "v"
+                      TupleExpression
+                         Type: uint256
+                         Source: "(2 ** (8 * (31 - i)))"
+                        BinaryOperation using operator **
+                           Type: uint256
+                           Source: "2 ** (8 * (31 - i))"
+                          Literal, token: [no token] value: 2
+                             Type: int_const 2
+                             Source: "2"
+                          TupleExpression
+                             Type: uint256
+                             Source: "(8 * (31 - i))"
+                            BinaryOperation using operator *
+                               Type: uint256
+                               Source: "8 * (31 - i)"
+                              Literal, token: [no token] value: 8
+                                 Type: int_const 8
+                                 Source: "8"
+                              TupleExpression
+                                 Type: uint256
+                                 Source: "(31 - i)"
+                                BinaryOperation using operator -
+                                   Type: uint256
+                                   Source: "31 - i"
+                                  Literal, token: [no token] value: 31
+                                     Type: int_const 31
+                                     Source: "31"
+                                  Identifier i
+                                     Type: uint256
+                                     Source: "i"
+                  Literal, token: [no token] value: 0xff
+                     Type: int_const 255
+                     Source: "0xff"
+          IfStatement
+             Source: "if (digit == 0) {\n                break;\n            }\n            else if (digit < 48 || digit > 57) {\n                throw;\n            }"
+            BinaryOperation using operator ==
+               Type: bool
+               Source: "digit == 0"
+              Identifier digit
+                 Type: uint256
+                 Source: "digit"
+              Literal, token: [no token] value: 0
+                 Type: int_const 0
+                 Source: "0"
+            Block
+               Source: "{\n                break;\n            }"
+              Break
+                 Source: "break"
+            IfStatement
+               Source: "if (digit < 48 || digit > 57) {\n                throw;\n            }"
+              BinaryOperation using operator ||
+                 Type: bool
+                 Source: "digit < 48 || digit > 57"
+                BinaryOperation using operator <
+                   Type: bool
+                   Source: "digit < 48"
+                  Identifier digit
+                     Type: uint256
+                     Source: "digit"
+                  Literal, token: [no token] value: 48
+                     Type: int_const 48
+                     Source: "48"
+                BinaryOperation using operator >
+                   Type: bool
+                   Source: "digit > 57"
+                  Identifier digit
+                     Type: uint256
+                     Source: "digit"
+                  Literal, token: [no token] value: 57
+                     Type: int_const 57
+                     Source: "57"
+              Block
+                 Source: "{\n                throw;\n            }"
+                Throw
+                   Source: "throw"
+          ExpressionStatement
+             Source: "ret *= 10"
+            Assignment using operator *=
+               Type: uint256
+               Source: "ret *= 10"
+              Identifier ret
+                 Type: uint256
+                 Source: "ret"
+              Literal, token: [no token] value: 10
+                 Type: int_const 10
+                 Source: "10"
+          ExpressionStatement
+             Source: "ret += (digit - 48)"
+            Assignment using operator +=
+               Type: uint256
+               Source: "ret += (digit - 48)"
+              Identifier ret
+                 Type: uint256
+                 Source: "ret"
+              TupleExpression
+                 Type: uint256
+                 Source: "(digit - 48)"
+                BinaryOperation using operator -
+                   Type: uint256
+                   Source: "digit - 48"
+                  Identifier digit
+                     Type: uint256
+                     Source: "digit"
+                  Literal, token: [no token] value: 48
+                     Type: int_const 48
+                     Source: "48"
+      Return
+         Source: "return ret"
+        Identifier ret
+           Type: uint256
+           Source: "ret"
+ContractDefinition "StringUtils"
+   Source: "library StringUtils {\n    /// @dev Converts an unsigned integert to its string representation.\n    /// @param v The number to be converted.\n    function uintToBytes(uint v) constant returns (bytes32 ret) {\n        return StringLib.uintToBytes(v);\n    }\n\n    /// @dev Converts a numeric string to it's unsigned integer representation.\n    /// @param v The string to be converted.\n    function bytesToUInt(bytes32 v) constant returns (uint ret) {\n        return StringLib.bytesToUInt(v);\n    }\n\n\n\n\n\n}"
+  FunctionDefinition "uintToBytes" - public - const
+     Source: "function uintToBytes(uint v) constant returns (bytes32 ret) {\n        return StringLib.uintToBytes(v);\n    }"
+    ParameterList
+       Source: "(uint v)"
+      VariableDeclaration "v"
+         Type: uint256
+         Source: "uint v"
+        ElementaryTypeName uint
+           Source: "uint"
+    ParameterList
+       Source: "(bytes32 ret)"
+      VariableDeclaration "ret"
+         Type: bytes32
+         Source: "bytes32 ret"
+        ElementaryTypeName bytes32
+           Source: "bytes32"
+    Block
+       Source: "{\n        return StringLib.uintToBytes(v);\n    }"
+      Return
+         Source: "return StringLib.uintToBytes(v)"
+        FunctionCall
+           Type: bytes32
+           Source: "StringLib.uintToBytes(v)"
+          MemberAccess to member uintToBytes
+             Type: function (uint256) view returns (bytes32)
+             Source: "StringLib.uintToBytes"
+            Identifier StringLib
+               Type: type(library StringLib)
+               Source: "StringLib"
+          Identifier v
+             Type: uint256
+             Source: "v"
+  FunctionDefinition "bytesToUInt" - public - const
+     Source: "function bytesToUInt(bytes32 v) constant returns (uint ret) {\n        return StringLib.bytesToUInt(v);\n    }"
+    ParameterList
+       Source: "(bytes32 v)"
+      VariableDeclaration "v"
+         Type: bytes32
+         Source: "bytes32 v"
+        ElementaryTypeName bytes32
+           Source: "bytes32"
+    ParameterList
+       Source: "(uint ret)"
+      VariableDeclaration "ret"
+         Type: uint256
+         Source: "uint ret"
+        ElementaryTypeName uint
+           Source: "uint"
+    Block
+       Source: "{\n        return StringLib.bytesToUInt(v);\n    }"
+      Return
+         Source: "return StringLib.bytesToUInt(v)"
+        FunctionCall
+           Type: uint256
+           Source: "StringLib.bytesToUInt(v)"
+          MemberAccess to member bytesToUInt
+             Type: function (bytes32) view returns (uint256)
+             Source: "StringLib.bytesToUInt"
+            Identifier StringLib
+               Type: type(library StringLib)
+               Source: "StringLib"
+          Identifier v
+             Type: bytes32
+             Source: "v"

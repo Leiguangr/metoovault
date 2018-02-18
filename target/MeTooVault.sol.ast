@@ -1,0 +1,861 @@
+PragmaDirective
+   Source: "pragma solidity ^0.4.18;"
+ImportDirective "./strings.sol"
+   Source: "import \"./strings.sol\";"
+ImportDirective "./StringUtils.sol"
+   Source: "import \"./StringUtils.sol\";"
+ContractDefinition "MeTooVault"
+   Source: "contract MeTooVault {\n\tusing strings for *;\n\tusing StringUtils for *;\n\n\tstruct Memory {\n\t\tuint timestamp;\n\t\tstring memoryString;\n\t}\n\n\tuint _numberOfMemories;\n\n\tmapping (string => Memory[]) _memories;\n\tmapping (address => string[]) address_to_pass;\n\tstring delimiter = \"###############\";\n\n\n\tfunction MeTooVault() {\n\t\t_numberOfMemories = 0;\n\t}\n\n\tfunction embedMemory(string accountId, string memoryString) returns (int result) {\n\t\tif (bytes(memoryString).length > 10000) {\n\t\t\tresult = -2;\n\t\t} else {\n\t\t\tMemory memory _memory;\n\t\t\t_memory.timestamp = now;\n\t\t\t_memory.memoryString = memoryString;\n\t\t\t_memories[accountId].push(_memory);\n\t\t\t_numberOfMemories+=1;\n\t\t\tresult = 0;\n\t\t}\n\t}\n\n\tfunction getLatestMemory(string accountId) constant returns (string memoryString, uint timestamp) {\n\t\tif (_memories[accountId].length > 0)\n\t\t{\n\t\t\treturn (_memories[accountId][0].memoryString, _memories[accountId][0].timestamp);\n\t\t}\n\t}\n\n\tfunction bytesToString(bytes32 x) constant returns (string) {\n\t\tbytes memory bytesString = new bytes(32);\n\t\tuint charCount = 0;\n\t\tfor (uint j = 0; j < 32; j++) {\n\t\t\tbyte char = byte(bytes32(uint(x) * 2 ** (8 * j)));\n\t\t\tif (char != 0) {\n\t\t\t\tbytesString[charCount] = char;\n\t\t\t\tcharCount++;\n\t\t\t}\n\t\t}\n\t\tbytes memory bytesStringTrimmed = new bytes(charCount);\n\t\tfor (j = 0; j < charCount; j++) {\n\t\t\tbytesStringTrimmed[j] = bytesString[j];\n\t\t}\n\t\treturn string(bytesStringTrimmed);\n\t}\n\n\n\tfunction getAllMemory(string accountId) constant returns (string, string) {\n\n\n\t\tif (_memories[accountId].length > 0)\n\t\t{\n\t\t\tvar memory_list = new strings.slice[](_memories[accountId].length);\n\t\t\tvar timestamp_list = new strings.slice[](_memories[accountId].length);\n\t\t\tuint i = 0;\n\t\t\twhile (i < _memories[accountId].length) {\n\t\t\t\tmemory_list[i] = _memories[accountId][i].memoryString.toSlice();\n\t\t\t\ttimestamp_list[i] = bytesToString(StringUtils.uintToBytes(_memories[accountId][i].timestamp)).toSlice();\n\t\t\t\ti++;\n\t\t\t}\n\n\t\t\treturn (delimiter.toSlice().join(memory_list), delimiter.toSlice().join(timestamp_list));\n\t\t\t//return memory_list[0].toString();\n\t\t}\n\t}\n\n\tfunction getNumberOfMemories() constant returns (uint numberOfMemories) {\n\t\treturn _numberOfMemories;\n\t}\n\n\tfunction getGlobalNumberOfMemories() constant returns (uint numberOfMemories) {\n\t\treturn _numberOfMemories;\n\t}\n\n}"
+  UsingForDirective
+     Source: "using strings for *;"
+    UserDefinedTypeName "strings"
+       Source: "strings"
+  UsingForDirective
+     Source: "using StringUtils for *;"
+    UserDefinedTypeName "StringUtils"
+       Source: "StringUtils"
+  StructDefinition "Memory"
+     Source: "struct Memory {\n\t\tuint timestamp;\n\t\tstring memoryString;\n\t}"
+    VariableDeclaration "timestamp"
+       Type: uint256
+       Source: "uint timestamp"
+      ElementaryTypeName uint
+         Source: "uint"
+    VariableDeclaration "memoryString"
+       Type: string storage pointer
+       Source: "string memoryString"
+      ElementaryTypeName string
+         Source: "string"
+  VariableDeclaration "_numberOfMemories"
+     Type: uint256
+     Source: "uint _numberOfMemories"
+    ElementaryTypeName uint
+       Source: "uint"
+  VariableDeclaration "_memories"
+     Type: mapping(string memory => struct MeTooVault.Memory storage ref[] storage ref)
+     Source: "mapping (string => Memory[]) _memories"
+    Mapping
+       Source: "mapping (string => Memory[])"
+      ElementaryTypeName string
+         Source: "string"
+      ArrayTypeName
+         Source: "Memory[]"
+        UserDefinedTypeName "Memory"
+           Source: "Memory"
+  VariableDeclaration "address_to_pass"
+     Type: mapping(address => string storage ref[] storage ref)
+     Source: "mapping (address => string[]) address_to_pass"
+    Mapping
+       Source: "mapping (address => string[])"
+      ElementaryTypeName address
+         Source: "address"
+      ArrayTypeName
+         Source: "string[]"
+        ElementaryTypeName string
+           Source: "string"
+  VariableDeclaration "delimiter"
+     Type: string storage ref
+     Source: "string delimiter = \"###############\""
+    ElementaryTypeName string
+       Source: "string"
+    Literal, token: [no token] value: ###############
+       Type: literal_string "###############"
+       Source: "\"###############\""
+  FunctionDefinition "MeTooVault" - public
+     Source: "function MeTooVault() {\n\t\t_numberOfMemories = 0;\n\t}"
+    ParameterList
+       Source: "()"
+    ParameterList
+       Source: ""
+    Block
+       Source: "{\n\t\t_numberOfMemories = 0;\n\t}"
+      ExpressionStatement
+         Source: "_numberOfMemories = 0"
+        Assignment using operator =
+           Type: uint256
+           Source: "_numberOfMemories = 0"
+          Identifier _numberOfMemories
+             Type: uint256
+             Source: "_numberOfMemories"
+          Literal, token: [no token] value: 0
+             Type: int_const 0
+             Source: "0"
+  FunctionDefinition "embedMemory" - public
+     Source: "function embedMemory(string accountId, string memoryString) returns (int result) {\n\t\tif (bytes(memoryString).length > 10000) {\n\t\t\tresult = -2;\n\t\t} else {\n\t\t\tMemory memory _memory;\n\t\t\t_memory.timestamp = now;\n\t\t\t_memory.memoryString = memoryString;\n\t\t\t_memories[accountId].push(_memory);\n\t\t\t_numberOfMemories+=1;\n\t\t\tresult = 0;\n\t\t}\n\t}"
+    ParameterList
+       Source: "(string accountId, string memoryString)"
+      VariableDeclaration "accountId"
+         Type: string memory
+         Source: "string accountId"
+        ElementaryTypeName string
+           Source: "string"
+      VariableDeclaration "memoryString"
+         Type: string memory
+         Source: "string memoryString"
+        ElementaryTypeName string
+           Source: "string"
+    ParameterList
+       Source: "(int result)"
+      VariableDeclaration "result"
+         Type: int256
+         Source: "int result"
+        ElementaryTypeName int
+           Source: "int"
+    Block
+       Source: "{\n\t\tif (bytes(memoryString).length > 10000) {\n\t\t\tresult = -2;\n\t\t} else {\n\t\t\tMemory memory _memory;\n\t\t\t_memory.timestamp = now;\n\t\t\t_memory.memoryString = memoryString;\n\t\t\t_memories[accountId].push(_memory);\n\t\t\t_numberOfMemories+=1;\n\t\t\tresult = 0;\n\t\t}\n\t}"
+      IfStatement
+         Source: "if (bytes(memoryString).length > 10000) {\n\t\t\tresult = -2;\n\t\t} else {\n\t\t\tMemory memory _memory;\n\t\t\t_memory.timestamp = now;\n\t\t\t_memory.memoryString = memoryString;\n\t\t\t_memories[accountId].push(_memory);\n\t\t\t_numberOfMemories+=1;\n\t\t\tresult = 0;\n\t\t}"
+        BinaryOperation using operator >
+           Type: bool
+           Source: "bytes(memoryString).length > 10000"
+          MemberAccess to member length
+             Type: uint256
+             Source: "bytes(memoryString).length"
+            FunctionCall
+               Type: bytes memory
+               Source: "bytes(memoryString)"
+              ElementaryTypeNameExpression bytes
+                 Type: type(bytes storage pointer)
+                 Source: "bytes"
+              Identifier memoryString
+                 Type: string memory
+                 Source: "memoryString"
+          Literal, token: [no token] value: 10000
+             Type: int_const 10000
+             Source: "10000"
+        Block
+           Source: "{\n\t\t\tresult = -2;\n\t\t}"
+          ExpressionStatement
+             Source: "result = -2"
+            Assignment using operator =
+               Type: int256
+               Source: "result = -2"
+              Identifier result
+                 Type: int256
+                 Source: "result"
+              UnaryOperation (prefix) -
+                 Type: int_const -2
+                 Source: "-2"
+                Literal, token: [no token] value: 2
+                   Type: int_const 2
+                   Source: "2"
+        Block
+           Source: "{\n\t\t\tMemory memory _memory;\n\t\t\t_memory.timestamp = now;\n\t\t\t_memory.memoryString = memoryString;\n\t\t\t_memories[accountId].push(_memory);\n\t\t\t_numberOfMemories+=1;\n\t\t\tresult = 0;\n\t\t}"
+          VariableDeclarationStatement
+             Source: "Memory memory _memory"
+            VariableDeclaration "_memory"
+               Type: struct MeTooVault.Memory memory
+               Source: "Memory memory _memory"
+              UserDefinedTypeName "Memory"
+                 Source: "Memory"
+          ExpressionStatement
+             Source: "_memory.timestamp = now"
+            Assignment using operator =
+               Type: uint256
+               Source: "_memory.timestamp = now"
+              MemberAccess to member timestamp
+                 Type: uint256
+                 Source: "_memory.timestamp"
+                Identifier _memory
+                   Type: struct MeTooVault.Memory memory
+                   Source: "_memory"
+              Identifier now
+                 Type: uint256
+                 Source: "now"
+          ExpressionStatement
+             Source: "_memory.memoryString = memoryString"
+            Assignment using operator =
+               Type: string memory
+               Source: "_memory.memoryString = memoryString"
+              MemberAccess to member memoryString
+                 Type: string memory
+                 Source: "_memory.memoryString"
+                Identifier _memory
+                   Type: struct MeTooVault.Memory memory
+                   Source: "_memory"
+              Identifier memoryString
+                 Type: string memory
+                 Source: "memoryString"
+          ExpressionStatement
+             Source: "_memories[accountId].push(_memory)"
+            FunctionCall
+               Type: uint256
+               Source: "_memories[accountId].push(_memory)"
+              MemberAccess to member push
+                 Type: function (struct MeTooVault.Memory storage ref) returns (uint256)
+                 Source: "_memories[accountId].push"
+                IndexAccess
+                   Type: struct MeTooVault.Memory storage ref[] storage ref
+                   Source: "_memories[accountId]"
+                  Identifier _memories
+                     Type: mapping(string memory => struct MeTooVault.Memory storage ref[] storage ref)
+                     Source: "_memories"
+                  Identifier accountId
+                     Type: string memory
+                     Source: "accountId"
+              Identifier _memory
+                 Type: struct MeTooVault.Memory memory
+                 Source: "_memory"
+          ExpressionStatement
+             Source: "_numberOfMemories+=1"
+            Assignment using operator +=
+               Type: uint256
+               Source: "_numberOfMemories+=1"
+              Identifier _numberOfMemories
+                 Type: uint256
+                 Source: "_numberOfMemories"
+              Literal, token: [no token] value: 1
+                 Type: int_const 1
+                 Source: "1"
+          ExpressionStatement
+             Source: "result = 0"
+            Assignment using operator =
+               Type: int256
+               Source: "result = 0"
+              Identifier result
+                 Type: int256
+                 Source: "result"
+              Literal, token: [no token] value: 0
+                 Type: int_const 0
+                 Source: "0"
+  FunctionDefinition "getLatestMemory" - public - const
+     Source: "function getLatestMemory(string accountId) constant returns (string memoryString, uint timestamp) {\n\t\tif (_memories[accountId].length > 0)\n\t\t{\n\t\t\treturn (_memories[accountId][0].memoryString, _memories[accountId][0].timestamp);\n\t\t}\n\t}"
+    ParameterList
+       Source: "(string accountId)"
+      VariableDeclaration "accountId"
+         Type: string memory
+         Source: "string accountId"
+        ElementaryTypeName string
+           Source: "string"
+    ParameterList
+       Source: "(string memoryString, uint timestamp)"
+      VariableDeclaration "memoryString"
+         Type: string memory
+         Source: "string memoryString"
+        ElementaryTypeName string
+           Source: "string"
+      VariableDeclaration "timestamp"
+         Type: uint256
+         Source: "uint timestamp"
+        ElementaryTypeName uint
+           Source: "uint"
+    Block
+       Source: "{\n\t\tif (_memories[accountId].length > 0)\n\t\t{\n\t\t\treturn (_memories[accountId][0].memoryString, _memories[accountId][0].timestamp);\n\t\t}\n\t}"
+      IfStatement
+         Source: "if (_memories[accountId].length > 0)\n\t\t{\n\t\t\treturn (_memories[accountId][0].memoryString, _memories[accountId][0].timestamp);\n\t\t}"
+        BinaryOperation using operator >
+           Type: bool
+           Source: "_memories[accountId].length > 0"
+          MemberAccess to member length
+             Type: uint256
+             Source: "_memories[accountId].length"
+            IndexAccess
+               Type: struct MeTooVault.Memory storage ref[] storage ref
+               Source: "_memories[accountId]"
+              Identifier _memories
+                 Type: mapping(string memory => struct MeTooVault.Memory storage ref[] storage ref)
+                 Source: "_memories"
+              Identifier accountId
+                 Type: string memory
+                 Source: "accountId"
+          Literal, token: [no token] value: 0
+             Type: int_const 0
+             Source: "0"
+        Block
+           Source: "{\n\t\t\treturn (_memories[accountId][0].memoryString, _memories[accountId][0].timestamp);\n\t\t}"
+          Return
+             Source: "return (_memories[accountId][0].memoryString, _memories[accountId][0].timestamp)"
+            TupleExpression
+               Type: tuple(string storage ref,uint256)
+               Source: "(_memories[accountId][0].memoryString, _memories[accountId][0].timestamp)"
+              MemberAccess to member memoryString
+                 Type: string storage ref
+                 Source: "_memories[accountId][0].memoryString"
+                IndexAccess
+                   Type: struct MeTooVault.Memory storage ref
+                   Source: "_memories[accountId][0]"
+                  IndexAccess
+                     Type: struct MeTooVault.Memory storage ref[] storage ref
+                     Source: "_memories[accountId]"
+                    Identifier _memories
+                       Type: mapping(string memory => struct MeTooVault.Memory storage ref[] storage ref)
+                       Source: "_memories"
+                    Identifier accountId
+                       Type: string memory
+                       Source: "accountId"
+                  Literal, token: [no token] value: 0
+                     Type: int_const 0
+                     Source: "0"
+              MemberAccess to member timestamp
+                 Type: uint256
+                 Source: "_memories[accountId][0].timestamp"
+                IndexAccess
+                   Type: struct MeTooVault.Memory storage ref
+                   Source: "_memories[accountId][0]"
+                  IndexAccess
+                     Type: struct MeTooVault.Memory storage ref[] storage ref
+                     Source: "_memories[accountId]"
+                    Identifier _memories
+                       Type: mapping(string memory => struct MeTooVault.Memory storage ref[] storage ref)
+                       Source: "_memories"
+                    Identifier accountId
+                       Type: string memory
+                       Source: "accountId"
+                  Literal, token: [no token] value: 0
+                     Type: int_const 0
+                     Source: "0"
+  FunctionDefinition "bytesToString" - public - const
+     Source: "function bytesToString(bytes32 x) constant returns (string) {\n\t\tbytes memory bytesString = new bytes(32);\n\t\tuint charCount = 0;\n\t\tfor (uint j = 0; j < 32; j++) {\n\t\t\tbyte char = byte(bytes32(uint(x) * 2 ** (8 * j)));\n\t\t\tif (char != 0) {\n\t\t\t\tbytesString[charCount] = char;\n\t\t\t\tcharCount++;\n\t\t\t}\n\t\t}\n\t\tbytes memory bytesStringTrimmed = new bytes(charCount);\n\t\tfor (j = 0; j < charCount; j++) {\n\t\t\tbytesStringTrimmed[j] = bytesString[j];\n\t\t}\n\t\treturn string(bytesStringTrimmed);\n\t}"
+    ParameterList
+       Source: "(bytes32 x)"
+      VariableDeclaration "x"
+         Type: bytes32
+         Source: "bytes32 x"
+        ElementaryTypeName bytes32
+           Source: "bytes32"
+    ParameterList
+       Source: "(string)"
+      VariableDeclaration ""
+         Type: string memory
+         Source: "string"
+        ElementaryTypeName string
+           Source: "string"
+    Block
+       Source: "{\n\t\tbytes memory bytesString = new bytes(32);\n\t\tuint charCount = 0;\n\t\tfor (uint j = 0; j < 32; j++) {\n\t\t\tbyte char = byte(bytes32(uint(x) * 2 ** (8 * j)));\n\t\t\tif (char != 0) {\n\t\t\t\tbytesString[charCount] = char;\n\t\t\t\tcharCount++;\n\t\t\t}\n\t\t}\n\t\tbytes memory bytesStringTrimmed = new bytes(charCount);\n\t\tfor (j = 0; j < charCount; j++) {\n\t\t\tbytesStringTrimmed[j] = bytesString[j];\n\t\t}\n\t\treturn string(bytesStringTrimmed);\n\t}"
+      VariableDeclarationStatement
+         Source: "bytes memory bytesString = new bytes(32)"
+        VariableDeclaration "bytesString"
+           Type: bytes memory
+           Source: "bytes memory bytesString"
+          ElementaryTypeName bytes
+             Source: "bytes"
+        FunctionCall
+           Type: bytes memory
+           Source: "new bytes(32)"
+          NewExpression
+             Type: function (uint256) pure returns (bytes memory)
+             Source: "new bytes"
+            ElementaryTypeName bytes
+               Source: "bytes"
+          Literal, token: [no token] value: 32
+             Type: int_const 32
+             Source: "32"
+      VariableDeclarationStatement
+         Source: "uint charCount = 0"
+        VariableDeclaration "charCount"
+           Type: uint256
+           Source: "uint charCount"
+          ElementaryTypeName uint
+             Source: "uint"
+        Literal, token: [no token] value: 0
+           Type: int_const 0
+           Source: "0"
+      ForStatement
+         Source: "for (uint j = 0; j < 32; j++) {\n\t\t\tbyte char = byte(bytes32(uint(x) * 2 ** (8 * j)));\n\t\t\tif (char != 0) {\n\t\t\t\tbytesString[charCount] = char;\n\t\t\t\tcharCount++;\n\t\t\t}\n\t\t}"
+        VariableDeclarationStatement
+           Source: "uint j = 0"
+          VariableDeclaration "j"
+             Type: uint256
+             Source: "uint j"
+            ElementaryTypeName uint
+               Source: "uint"
+          Literal, token: [no token] value: 0
+             Type: int_const 0
+             Source: "0"
+        BinaryOperation using operator <
+           Type: bool
+           Source: "j < 32"
+          Identifier j
+             Type: uint256
+             Source: "j"
+          Literal, token: [no token] value: 32
+             Type: int_const 32
+             Source: "32"
+        ExpressionStatement
+           Source: "j++"
+          UnaryOperation (postfix) ++
+             Type: uint256
+             Source: "j++"
+            Identifier j
+               Type: uint256
+               Source: "j"
+        Block
+           Source: "{\n\t\t\tbyte char = byte(bytes32(uint(x) * 2 ** (8 * j)));\n\t\t\tif (char != 0) {\n\t\t\t\tbytesString[charCount] = char;\n\t\t\t\tcharCount++;\n\t\t\t}\n\t\t}"
+          VariableDeclarationStatement
+             Source: "byte char = byte(bytes32(uint(x) * 2 ** (8 * j)))"
+            VariableDeclaration "char"
+               Type: bytes1
+               Source: "byte char"
+              ElementaryTypeName byte
+                 Source: "byte"
+            FunctionCall
+               Type: bytes1
+               Source: "byte(bytes32(uint(x) * 2 ** (8 * j)))"
+              ElementaryTypeNameExpression byte
+                 Type: type(bytes1)
+                 Source: "byte"
+              FunctionCall
+                 Type: bytes32
+                 Source: "bytes32(uint(x) * 2 ** (8 * j))"
+                ElementaryTypeNameExpression bytes32
+                   Type: type(bytes32)
+                   Source: "bytes32"
+                BinaryOperation using operator *
+                   Type: uint256
+                   Source: "uint(x) * 2 ** (8 * j)"
+                  FunctionCall
+                     Type: uint256
+                     Source: "uint(x)"
+                    ElementaryTypeNameExpression uint
+                       Type: type(uint256)
+                       Source: "uint"
+                    Identifier x
+                       Type: bytes32
+                       Source: "x"
+                  BinaryOperation using operator **
+                     Type: uint256
+                     Source: "2 ** (8 * j)"
+                    Literal, token: [no token] value: 2
+                       Type: int_const 2
+                       Source: "2"
+                    TupleExpression
+                       Type: uint256
+                       Source: "(8 * j)"
+                      BinaryOperation using operator *
+                         Type: uint256
+                         Source: "8 * j"
+                        Literal, token: [no token] value: 8
+                           Type: int_const 8
+                           Source: "8"
+                        Identifier j
+                           Type: uint256
+                           Source: "j"
+          IfStatement
+             Source: "if (char != 0) {\n\t\t\t\tbytesString[charCount] = char;\n\t\t\t\tcharCount++;\n\t\t\t}"
+            BinaryOperation using operator !=
+               Type: bool
+               Source: "char != 0"
+              Identifier char
+                 Type: bytes1
+                 Source: "char"
+              Literal, token: [no token] value: 0
+                 Type: int_const 0
+                 Source: "0"
+            Block
+               Source: "{\n\t\t\t\tbytesString[charCount] = char;\n\t\t\t\tcharCount++;\n\t\t\t}"
+              ExpressionStatement
+                 Source: "bytesString[charCount] = char"
+                Assignment using operator =
+                   Type: bytes1
+                   Source: "bytesString[charCount] = char"
+                  IndexAccess
+                     Type: bytes1
+                     Source: "bytesString[charCount]"
+                    Identifier bytesString
+                       Type: bytes memory
+                       Source: "bytesString"
+                    Identifier charCount
+                       Type: uint256
+                       Source: "charCount"
+                  Identifier char
+                     Type: bytes1
+                     Source: "char"
+              ExpressionStatement
+                 Source: "charCount++"
+                UnaryOperation (postfix) ++
+                   Type: uint256
+                   Source: "charCount++"
+                  Identifier charCount
+                     Type: uint256
+                     Source: "charCount"
+      VariableDeclarationStatement
+         Source: "bytes memory bytesStringTrimmed = new bytes(charCount)"
+        VariableDeclaration "bytesStringTrimmed"
+           Type: bytes memory
+           Source: "bytes memory bytesStringTrimmed"
+          ElementaryTypeName bytes
+             Source: "bytes"
+        FunctionCall
+           Type: bytes memory
+           Source: "new bytes(charCount)"
+          NewExpression
+             Type: function (uint256) pure returns (bytes memory)
+             Source: "new bytes"
+            ElementaryTypeName bytes
+               Source: "bytes"
+          Identifier charCount
+             Type: uint256
+             Source: "charCount"
+      ForStatement
+         Source: "for (j = 0; j < charCount; j++) {\n\t\t\tbytesStringTrimmed[j] = bytesString[j];\n\t\t}"
+        ExpressionStatement
+           Source: "j = 0"
+          Assignment using operator =
+             Type: uint256
+             Source: "j = 0"
+            Identifier j
+               Type: uint256
+               Source: "j"
+            Literal, token: [no token] value: 0
+               Type: int_const 0
+               Source: "0"
+        BinaryOperation using operator <
+           Type: bool
+           Source: "j < charCount"
+          Identifier j
+             Type: uint256
+             Source: "j"
+          Identifier charCount
+             Type: uint256
+             Source: "charCount"
+        ExpressionStatement
+           Source: "j++"
+          UnaryOperation (postfix) ++
+             Type: uint256
+             Source: "j++"
+            Identifier j
+               Type: uint256
+               Source: "j"
+        Block
+           Source: "{\n\t\t\tbytesStringTrimmed[j] = bytesString[j];\n\t\t}"
+          ExpressionStatement
+             Source: "bytesStringTrimmed[j] = bytesString[j]"
+            Assignment using operator =
+               Type: bytes1
+               Source: "bytesStringTrimmed[j] = bytesString[j]"
+              IndexAccess
+                 Type: bytes1
+                 Source: "bytesStringTrimmed[j]"
+                Identifier bytesStringTrimmed
+                   Type: bytes memory
+                   Source: "bytesStringTrimmed"
+                Identifier j
+                   Type: uint256
+                   Source: "j"
+              IndexAccess
+                 Type: bytes1
+                 Source: "bytesString[j]"
+                Identifier bytesString
+                   Type: bytes memory
+                   Source: "bytesString"
+                Identifier j
+                   Type: uint256
+                   Source: "j"
+      Return
+         Source: "return string(bytesStringTrimmed)"
+        FunctionCall
+           Type: string memory
+           Source: "string(bytesStringTrimmed)"
+          ElementaryTypeNameExpression string
+             Type: type(string storage pointer)
+             Source: "string"
+          Identifier bytesStringTrimmed
+             Type: bytes memory
+             Source: "bytesStringTrimmed"
+  FunctionDefinition "getAllMemory" - public - const
+     Source: "function getAllMemory(string accountId) constant returns (string, string) {\n\n\n\t\tif (_memories[accountId].length > 0)\n\t\t{\n\t\t\tvar memory_list = new strings.slice[](_memories[accountId].length);\n\t\t\tvar timestamp_list = new strings.slice[](_memories[accountId].length);\n\t\t\tuint i = 0;\n\t\t\twhile (i < _memories[accountId].length) {\n\t\t\t\tmemory_list[i] = _memories[accountId][i].memoryString.toSlice();\n\t\t\t\ttimestamp_list[i] = bytesToString(StringUtils.uintToBytes(_memories[accountId][i].timestamp)).toSlice();\n\t\t\t\ti++;\n\t\t\t}\n\n\t\t\treturn (delimiter.toSlice().join(memory_list), delimiter.toSlice().join(timestamp_list));\n\t\t\t//return memory_list[0].toString();\n\t\t}\n\t}"
+    ParameterList
+       Source: "(string accountId)"
+      VariableDeclaration "accountId"
+         Type: string memory
+         Source: "string accountId"
+        ElementaryTypeName string
+           Source: "string"
+    ParameterList
+       Source: "(string, string)"
+      VariableDeclaration ""
+         Type: string memory
+         Source: "string"
+        ElementaryTypeName string
+           Source: "string"
+      VariableDeclaration ""
+         Type: string memory
+         Source: "string"
+        ElementaryTypeName string
+           Source: "string"
+    Block
+       Source: "{\n\n\n\t\tif (_memories[accountId].length > 0)\n\t\t{\n\t\t\tvar memory_list = new strings.slice[](_memories[accountId].length);\n\t\t\tvar timestamp_list = new strings.slice[](_memories[accountId].length);\n\t\t\tuint i = 0;\n\t\t\twhile (i < _memories[accountId].length) {\n\t\t\t\tmemory_list[i] = _memories[accountId][i].memoryString.toSlice();\n\t\t\t\ttimestamp_list[i] = bytesToString(StringUtils.uintToBytes(_memories[accountId][i].timestamp)).toSlice();\n\t\t\t\ti++;\n\t\t\t}\n\n\t\t\treturn (delimiter.toSlice().join(memory_list), delimiter.toSlice().join(timestamp_list));\n\t\t\t//return memory_list[0].toString();\n\t\t}\n\t}"
+      IfStatement
+         Source: "if (_memories[accountId].length > 0)\n\t\t{\n\t\t\tvar memory_list = new strings.slice[](_memories[accountId].length);\n\t\t\tvar timestamp_list = new strings.slice[](_memories[accountId].length);\n\t\t\tuint i = 0;\n\t\t\twhile (i < _memories[accountId].length) {\n\t\t\t\tmemory_list[i] = _memories[accountId][i].memoryString.toSlice();\n\t\t\t\ttimestamp_list[i] = bytesToString(StringUtils.uintToBytes(_memories[accountId][i].timestamp)).toSlice();\n\t\t\t\ti++;\n\t\t\t}\n\n\t\t\treturn (delimiter.toSlice().join(memory_list), delimiter.toSlice().join(timestamp_list));\n\t\t\t//return memory_list[0].toString();\n\t\t}"
+        BinaryOperation using operator >
+           Type: bool
+           Source: "_memories[accountId].length > 0"
+          MemberAccess to member length
+             Type: uint256
+             Source: "_memories[accountId].length"
+            IndexAccess
+               Type: struct MeTooVault.Memory storage ref[] storage ref
+               Source: "_memories[accountId]"
+              Identifier _memories
+                 Type: mapping(string memory => struct MeTooVault.Memory storage ref[] storage ref)
+                 Source: "_memories"
+              Identifier accountId
+                 Type: string memory
+                 Source: "accountId"
+          Literal, token: [no token] value: 0
+             Type: int_const 0
+             Source: "0"
+        Block
+           Source: "{\n\t\t\tvar memory_list = new strings.slice[](_memories[accountId].length);\n\t\t\tvar timestamp_list = new strings.slice[](_memories[accountId].length);\n\t\t\tuint i = 0;\n\t\t\twhile (i < _memories[accountId].length) {\n\t\t\t\tmemory_list[i] = _memories[accountId][i].memoryString.toSlice();\n\t\t\t\ttimestamp_list[i] = bytesToString(StringUtils.uintToBytes(_memories[accountId][i].timestamp)).toSlice();\n\t\t\t\ti++;\n\t\t\t}\n\n\t\t\treturn (delimiter.toSlice().join(memory_list), delimiter.toSlice().join(timestamp_list));\n\t\t\t//return memory_list[0].toString();\n\t\t}"
+          VariableDeclarationStatement
+             Source: "var memory_list = new strings.slice[](_memories[accountId].length)"
+            VariableDeclaration "memory_list"
+               Type: struct strings.slice memory[] memory
+               Source: "var memory_list"
+            FunctionCall
+               Type: struct strings.slice memory[] memory
+               Source: "new strings.slice[](_memories[accountId].length)"
+              NewExpression
+                 Type: function (uint256) pure returns (struct strings.slice memory[] memory)
+                 Source: "new strings.slice[]"
+                ArrayTypeName
+                   Source: "strings.slice[]"
+                  UserDefinedTypeName "strings.slice"
+                     Source: "strings.slice"
+              MemberAccess to member length
+                 Type: uint256
+                 Source: "_memories[accountId].length"
+                IndexAccess
+                   Type: struct MeTooVault.Memory storage ref[] storage ref
+                   Source: "_memories[accountId]"
+                  Identifier _memories
+                     Type: mapping(string memory => struct MeTooVault.Memory storage ref[] storage ref)
+                     Source: "_memories"
+                  Identifier accountId
+                     Type: string memory
+                     Source: "accountId"
+          VariableDeclarationStatement
+             Source: "var timestamp_list = new strings.slice[](_memories[accountId].length)"
+            VariableDeclaration "timestamp_list"
+               Type: struct strings.slice memory[] memory
+               Source: "var timestamp_list"
+            FunctionCall
+               Type: struct strings.slice memory[] memory
+               Source: "new strings.slice[](_memories[accountId].length)"
+              NewExpression
+                 Type: function (uint256) pure returns (struct strings.slice memory[] memory)
+                 Source: "new strings.slice[]"
+                ArrayTypeName
+                   Source: "strings.slice[]"
+                  UserDefinedTypeName "strings.slice"
+                     Source: "strings.slice"
+              MemberAccess to member length
+                 Type: uint256
+                 Source: "_memories[accountId].length"
+                IndexAccess
+                   Type: struct MeTooVault.Memory storage ref[] storage ref
+                   Source: "_memories[accountId]"
+                  Identifier _memories
+                     Type: mapping(string memory => struct MeTooVault.Memory storage ref[] storage ref)
+                     Source: "_memories"
+                  Identifier accountId
+                     Type: string memory
+                     Source: "accountId"
+          VariableDeclarationStatement
+             Source: "uint i = 0"
+            VariableDeclaration "i"
+               Type: uint256
+               Source: "uint i"
+              ElementaryTypeName uint
+                 Source: "uint"
+            Literal, token: [no token] value: 0
+               Type: int_const 0
+               Source: "0"
+          WhileStatement
+             Source: "while (i < _memories[accountId].length) {\n\t\t\t\tmemory_list[i] = _memories[accountId][i].memoryString.toSlice();\n\t\t\t\ttimestamp_list[i] = bytesToString(StringUtils.uintToBytes(_memories[accountId][i].timestamp)).toSlice();\n\t\t\t\ti++;\n\t\t\t}"
+            BinaryOperation using operator <
+               Type: bool
+               Source: "i < _memories[accountId].length"
+              Identifier i
+                 Type: uint256
+                 Source: "i"
+              MemberAccess to member length
+                 Type: uint256
+                 Source: "_memories[accountId].length"
+                IndexAccess
+                   Type: struct MeTooVault.Memory storage ref[] storage ref
+                   Source: "_memories[accountId]"
+                  Identifier _memories
+                     Type: mapping(string memory => struct MeTooVault.Memory storage ref[] storage ref)
+                     Source: "_memories"
+                  Identifier accountId
+                     Type: string memory
+                     Source: "accountId"
+            Block
+               Source: "{\n\t\t\t\tmemory_list[i] = _memories[accountId][i].memoryString.toSlice();\n\t\t\t\ttimestamp_list[i] = bytesToString(StringUtils.uintToBytes(_memories[accountId][i].timestamp)).toSlice();\n\t\t\t\ti++;\n\t\t\t}"
+              ExpressionStatement
+                 Source: "memory_list[i] = _memories[accountId][i].memoryString.toSlice()"
+                Assignment using operator =
+                   Type: struct strings.slice memory
+                   Source: "memory_list[i] = _memories[accountId][i].memoryString.toSlice()"
+                  IndexAccess
+                     Type: struct strings.slice memory
+                     Source: "memory_list[i]"
+                    Identifier memory_list
+                       Type: struct strings.slice memory[] memory
+                       Source: "memory_list"
+                    Identifier i
+                       Type: uint256
+                       Source: "i"
+                  FunctionCall
+                     Type: struct strings.slice memory
+                     Source: "_memories[accountId][i].memoryString.toSlice()"
+                    MemberAccess to member toSlice
+                       Type: function (string memory) returns (struct strings.slice memory)
+                       Source: "_memories[accountId][i].memoryString.toSlice"
+                      MemberAccess to member memoryString
+                         Type: string storage ref
+                         Source: "_memories[accountId][i].memoryString"
+                        IndexAccess
+                           Type: struct MeTooVault.Memory storage ref
+                           Source: "_memories[accountId][i]"
+                          IndexAccess
+                             Type: struct MeTooVault.Memory storage ref[] storage ref
+                             Source: "_memories[accountId]"
+                            Identifier _memories
+                               Type: mapping(string memory => struct MeTooVault.Memory storage ref[] storage ref)
+                               Source: "_memories"
+                            Identifier accountId
+                               Type: string memory
+                               Source: "accountId"
+                          Identifier i
+                             Type: uint256
+                             Source: "i"
+              ExpressionStatement
+                 Source: "timestamp_list[i] = bytesToString(StringUtils.uintToBytes(_memories[accountId][i].timestamp)).toSlice()"
+                Assignment using operator =
+                   Type: struct strings.slice memory
+                   Source: "timestamp_list[i] = bytesToString(StringUtils.uintToBytes(_memories[accountId][i].timestamp)).toSlice()"
+                  IndexAccess
+                     Type: struct strings.slice memory
+                     Source: "timestamp_list[i]"
+                    Identifier timestamp_list
+                       Type: struct strings.slice memory[] memory
+                       Source: "timestamp_list"
+                    Identifier i
+                       Type: uint256
+                       Source: "i"
+                  FunctionCall
+                     Type: struct strings.slice memory
+                     Source: "bytesToString(StringUtils.uintToBytes(_memories[accountId][i].timestamp)).toSlice()"
+                    MemberAccess to member toSlice
+                       Type: function (string memory) returns (struct strings.slice memory)
+                       Source: "bytesToString(StringUtils.uintToBytes(_memories[accountId][i].timestamp)).toSlice"
+                      FunctionCall
+                         Type: string memory
+                         Source: "bytesToString(StringUtils.uintToBytes(_memories[accountId][i].timestamp))"
+                        Identifier bytesToString
+                           Type: function (bytes32) view returns (string memory)
+                           Source: "bytesToString"
+                        FunctionCall
+                           Type: bytes32
+                           Source: "StringUtils.uintToBytes(_memories[accountId][i].timestamp)"
+                          MemberAccess to member uintToBytes
+                             Type: function (uint256) view returns (bytes32)
+                             Source: "StringUtils.uintToBytes"
+                            Identifier StringUtils
+                               Type: type(library StringUtils)
+                               Source: "StringUtils"
+                          MemberAccess to member timestamp
+                             Type: uint256
+                             Source: "_memories[accountId][i].timestamp"
+                            IndexAccess
+                               Type: struct MeTooVault.Memory storage ref
+                               Source: "_memories[accountId][i]"
+                              IndexAccess
+                                 Type: struct MeTooVault.Memory storage ref[] storage ref
+                                 Source: "_memories[accountId]"
+                                Identifier _memories
+                                   Type: mapping(string memory => struct MeTooVault.Memory storage ref[] storage ref)
+                                   Source: "_memories"
+                                Identifier accountId
+                                   Type: string memory
+                                   Source: "accountId"
+                              Identifier i
+                                 Type: uint256
+                                 Source: "i"
+              ExpressionStatement
+                 Source: "i++"
+                UnaryOperation (postfix) ++
+                   Type: uint256
+                   Source: "i++"
+                  Identifier i
+                     Type: uint256
+                     Source: "i"
+          Return
+             Source: "return (delimiter.toSlice().join(memory_list), delimiter.toSlice().join(timestamp_list))"
+            TupleExpression
+               Type: tuple(string memory,string memory)
+               Source: "(delimiter.toSlice().join(memory_list), delimiter.toSlice().join(timestamp_list))"
+              FunctionCall
+                 Type: string memory
+                 Source: "delimiter.toSlice().join(memory_list)"
+                MemberAccess to member join
+                   Type: function (struct strings.slice memory,struct strings.slice memory[] memory) returns (string memory)
+                   Source: "delimiter.toSlice().join"
+                  FunctionCall
+                     Type: struct strings.slice memory
+                     Source: "delimiter.toSlice()"
+                    MemberAccess to member toSlice
+                       Type: function (string memory) returns (struct strings.slice memory)
+                       Source: "delimiter.toSlice"
+                      Identifier delimiter
+                         Type: string storage ref
+                         Source: "delimiter"
+                Identifier memory_list
+                   Type: struct strings.slice memory[] memory
+                   Source: "memory_list"
+              FunctionCall
+                 Type: string memory
+                 Source: "delimiter.toSlice().join(timestamp_list)"
+                MemberAccess to member join
+                   Type: function (struct strings.slice memory,struct strings.slice memory[] memory) returns (string memory)
+                   Source: "delimiter.toSlice().join"
+                  FunctionCall
+                     Type: struct strings.slice memory
+                     Source: "delimiter.toSlice()"
+                    MemberAccess to member toSlice
+                       Type: function (string memory) returns (struct strings.slice memory)
+                       Source: "delimiter.toSlice"
+                      Identifier delimiter
+                         Type: string storage ref
+                         Source: "delimiter"
+                Identifier timestamp_list
+                   Type: struct strings.slice memory[] memory
+                   Source: "timestamp_list"
+  FunctionDefinition "getNumberOfMemories" - public - const
+     Source: "function getNumberOfMemories() constant returns (uint numberOfMemories) {\n\t\treturn _numberOfMemories;\n\t}"
+    ParameterList
+       Source: "()"
+    ParameterList
+       Source: "(uint numberOfMemories)"
+      VariableDeclaration "numberOfMemories"
+         Type: uint256
+         Source: "uint numberOfMemories"
+        ElementaryTypeName uint
+           Source: "uint"
+    Block
+       Source: "{\n\t\treturn _numberOfMemories;\n\t}"
+      Return
+         Source: "return _numberOfMemories"
+        Identifier _numberOfMemories
+           Type: uint256
+           Source: "_numberOfMemories"
+  FunctionDefinition "getGlobalNumberOfMemories" - public - const
+     Source: "function getGlobalNumberOfMemories() constant returns (uint numberOfMemories) {\n\t\treturn _numberOfMemories;\n\t}"
+    ParameterList
+       Source: "()"
+    ParameterList
+       Source: "(uint numberOfMemories)"
+      VariableDeclaration "numberOfMemories"
+         Type: uint256
+         Source: "uint numberOfMemories"
+        ElementaryTypeName uint
+           Source: "uint"
+    Block
+       Source: "{\n\t\treturn _numberOfMemories;\n\t}"
+      Return
+         Source: "return _numberOfMemories"
+        Identifier _numberOfMemories
+           Type: uint256
+           Source: "_numberOfMemories"

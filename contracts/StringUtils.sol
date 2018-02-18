@@ -1,3 +1,4 @@
+pragma solidity ^0.4.19;
 library StringLib {
     /// @dev Converts an unsigned integert to its string representation.
     /// @param v The number to be converted.

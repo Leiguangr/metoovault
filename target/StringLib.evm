@@ -1,0 +1,395 @@
+    /* "contracts/StringUtils.sol":0:1116  library StringLib {... */
+  mstore(0x40, 0x60)
+  jumpi(tag_1, iszero(callvalue))
+  0x0
+  dup1
+  revert
+tag_1:
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x0
+  codecopy
+  0x0
+  return
+stop
+
+sub_0: assembly {
+        /* "contracts/StringUtils.sol":0:1116  library StringLib {... */
+      mstore(0x40, 0x60)
+      jumpi(tag_1, lt(calldatasize, 0x4))
+      calldataload(0x0)
+      0x100000000000000000000000000000000000000000000000000000000
+      swap1
+      div
+      0xffffffff
+      and
+      dup1
+      0x81a33a6f
+      eq
+      tag_2
+      jumpi
+      dup1
+      0x94e8767d
+      eq
+      tag_3
+      jumpi
+    tag_1:
+      0x0
+      dup1
+      revert
+        /* "contracts/StringUtils.sol":625:1114  function bytesToUInt(bytes32 v) constant returns (uint ret) {... */
+    tag_2:
+      tag_4
+      0x4
+      dup1
+      dup1
+      calldataload
+      not(0x0)
+      and
+      swap1
+      0x20
+      add
+      swap1
+      swap2
+      swap1
+      pop
+      pop
+      jump(tag_5)
+    tag_4:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "contracts/StringUtils.sol":142:494  function uintToBytes(uint v) constant returns (bytes32 ret) {... */
+    tag_3:
+      tag_6
+      0x4
+      dup1
+      dup1
+      calldataload
+      swap1
+      0x20
+      add
+      swap1
+      swap2
+      swap1
+      pop
+      pop
+      jump(tag_7)
+    tag_6:
+      mload(0x40)
+      dup1
+      dup3
+      not(0x0)
+      and
+      not(0x0)
+      and
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "contracts/StringUtils.sol":625:1114  function bytesToUInt(bytes32 v) constant returns (uint ret) {... */
+    tag_5:
+        /* "contracts/StringUtils.sol":675:683  uint ret */
+      0x0
+        /* "contracts/StringUtils.sol":749:759  uint digit */
+      dup1
+        /* "contracts/StringUtils.sol":775:781  uint i */
+      0x0
+        /* "contracts/StringUtils.sol":704:707  0x0 */
+      dup1
+        /* "contracts/StringUtils.sol":699:707  v == 0x0 */
+      0x1
+      mul
+        /* "contracts/StringUtils.sol":699:700  v */
+      dup5
+        /* "contracts/StringUtils.sol":699:707  v == 0x0 */
+      not(0x0)
+      and
+      eq
+        /* "contracts/StringUtils.sol":695:739  if (v == 0x0) {... */
+      iszero
+      tag_9
+      jumpi
+        /* "contracts/StringUtils.sol":723:728  throw */
+      0x0
+      dup1
+      revert
+        /* "contracts/StringUtils.sol":695:739  if (v == 0x0) {... */
+    tag_9:
+        /* "contracts/StringUtils.sol":784:785  0 */
+      0x0
+        /* "contracts/StringUtils.sol":775:785  uint i = 0 */
+      swap1
+      pop
+        /* "contracts/StringUtils.sol":770:1088  for (uint i = 0; i < 32; i++) {... */
+    tag_10:
+        /* "contracts/StringUtils.sol":791:793  32 */
+      0x20
+        /* "contracts/StringUtils.sol":787:788  i */
+      dup2
+        /* "contracts/StringUtils.sol":787:793  i < 32 */
+      lt
+        /* "contracts/StringUtils.sol":770:1088  for (uint i = 0; i < 32; i++) {... */
+      iszero
+      tag_11
+      jumpi
+        /* "contracts/StringUtils.sol":863:867  0xff */
+      0xff
+        /* "contracts/StringUtils.sol":855:856  i */
+      dup2
+        /* "contracts/StringUtils.sol":850:852  31 */
+      0x1f
+        /* "contracts/StringUtils.sol":850:856  31 - i */
+      sub
+        /* "contracts/StringUtils.sol":845:846  8 */
+      0x8
+        /* "contracts/StringUtils.sol":845:857  8 * (31 - i) */
+      mul
+        /* "contracts/StringUtils.sol":839:840  2 */
+      0x2
+        /* "contracts/StringUtils.sol":839:858  2 ** (8 * (31 - i)) */
+      exp
+        /* "contracts/StringUtils.sol":833:834  v */
+      dup6
+        /* "contracts/StringUtils.sol":828:835  uint(v) */
+      0x1
+      swap1
+      div
+        /* "contracts/StringUtils.sol":828:859  uint(v) / (2 ** (8 * (31 - i))) */
+      dup2
+      iszero
+      iszero
+      tag_13
+      jumpi
+      invalid
+    tag_13:
+      div
+        /* "contracts/StringUtils.sol":827:867  (uint(v) / (2 ** (8 * (31 - i)))) & 0xff */
+      and
+        /* "contracts/StringUtils.sol":814:868  digit = uint((uint(v) / (2 ** (8 * (31 - i)))) & 0xff) */
+      swap2
+      pop
+        /* "contracts/StringUtils.sol":895:896  0 */
+      0x0
+        /* "contracts/StringUtils.sol":886:891  digit */
+      dup3
+        /* "contracts/StringUtils.sol":886:896  digit == 0 */
+      eq
+        /* "contracts/StringUtils.sol":882:1022  if (digit == 0) {... */
+      iszero
+      tag_14
+      jumpi
+        /* "contracts/StringUtils.sol":916:921  break */
+      jump(tag_11)
+        /* "contracts/StringUtils.sol":882:1022  if (digit == 0) {... */
+    tag_14:
+        /* "contracts/StringUtils.sol":966:968  48 */
+      0x30
+        /* "contracts/StringUtils.sol":958:963  digit */
+      dup3
+        /* "contracts/StringUtils.sol":958:968  digit < 48 */
+      lt
+        /* "contracts/StringUtils.sol":958:982  digit < 48 || digit > 57 */
+      dup1
+      tag_16
+      jumpi
+      pop
+        /* "contracts/StringUtils.sol":980:982  57 */
+      0x39
+        /* "contracts/StringUtils.sol":972:977  digit */
+      dup3
+        /* "contracts/StringUtils.sol":972:982  digit > 57 */
+      gt
+        /* "contracts/StringUtils.sol":958:982  digit < 48 || digit > 57 */
+    tag_16:
+        /* "contracts/StringUtils.sol":954:1022  if (digit < 48 || digit > 57) {... */
+      iszero
+      tag_17
+      jumpi
+        /* "contracts/StringUtils.sol":1002:1007  throw */
+      0x0
+      dup1
+      revert
+        /* "contracts/StringUtils.sol":954:1022  if (digit < 48 || digit > 57) {... */
+    tag_17:
+        /* "contracts/StringUtils.sol":1042:1044  10 */
+      0xa
+        /* "contracts/StringUtils.sol":1035:1044  ret *= 10 */
+      dup4
+      mul
+      swap3
+      pop
+        /* "contracts/StringUtils.sol":1074:1076  48 */
+      0x30
+        /* "contracts/StringUtils.sol":1066:1071  digit */
+      dup3
+        /* "contracts/StringUtils.sol":1066:1076  digit - 48 */
+      sub
+        /* "contracts/StringUtils.sol":1058:1077  ret += (digit - 48) */
+      dup4
+      add
+      swap3
+      pop
+        /* "contracts/StringUtils.sol":795:798  i++ */
+      dup1
+      dup1
+      0x1
+      add
+      swap2
+      pop
+      pop
+        /* "contracts/StringUtils.sol":770:1088  for (uint i = 0; i < 32; i++) {... */
+      jump(tag_10)
+    tag_11:
+        /* "contracts/StringUtils.sol":1104:1107  ret */
+      dup3
+        /* "contracts/StringUtils.sol":1097:1107  return ret */
+      swap3
+      pop
+        /* "contracts/StringUtils.sol":625:1114  function bytesToUInt(bytes32 v) constant returns (uint ret) {... */
+      pop
+      pop
+      swap2
+      swap1
+      pop
+      jump	// out
+        /* "contracts/StringUtils.sol":142:494  function uintToBytes(uint v) constant returns (bytes32 ret) {... */
+    tag_7:
+        /* "contracts/StringUtils.sol":189:200  bytes32 ret */
+      0x0
+        /* "contracts/StringUtils.sol":221:222  0 */
+      dup1
+        /* "contracts/StringUtils.sol":216:217  v */
+      dup3
+        /* "contracts/StringUtils.sol":216:222  v == 0 */
+      eq
+        /* "contracts/StringUtils.sol":212:468  if (v == 0) {... */
+      iszero
+      tag_19
+      jumpi
+        /* "contracts/StringUtils.sol":238:247  ret = '0' */
+      0x3000000000000000000000000000000000000000000000000000000000000000
+      swap1
+      pop
+        /* "contracts/StringUtils.sol":212:468  if (v == 0) {... */
+      jump(tag_20)
+    tag_19:
+        /* "contracts/StringUtils.sol":286:458  while (v > 0) {... */
+    tag_21:
+        /* "contracts/StringUtils.sol":297:298  0 */
+      0x0
+        /* "contracts/StringUtils.sol":293:294  v */
+      dup3
+        /* "contracts/StringUtils.sol":293:298  v > 0 */
+      gt
+        /* "contracts/StringUtils.sol":286:458  while (v > 0) {... */
+      iszero
+      tag_22
+      jumpi
+        /* "contracts/StringUtils.sol":345:351  2 ** 8 */
+      0x100
+        /* "contracts/StringUtils.sol":337:340  ret */
+      dup2
+        /* "contracts/StringUtils.sol":332:341  uint(ret) */
+      0x1
+      swap1
+      div
+        /* "contracts/StringUtils.sol":332:352  uint(ret) / (2 ** 8) */
+      dup2
+      iszero
+      iszero
+      tag_23
+      jumpi
+      invalid
+    tag_23:
+      div
+        /* "contracts/StringUtils.sol":324:353  bytes32(uint(ret) / (2 ** 8)) */
+      0x1
+      mul
+        /* "contracts/StringUtils.sol":318:353  ret = bytes32(uint(ret) / (2 ** 8)) */
+      swap1
+      pop
+        /* "contracts/StringUtils.sol":404:417  2 ** (8 * 31) */
+      0x100000000000000000000000000000000000000000000000000000000000000
+        /* "contracts/StringUtils.sol":398:400  48 */
+      0x30
+        /* "contracts/StringUtils.sol":392:394  10 */
+      0xa
+        /* "contracts/StringUtils.sol":388:389  v */
+      dup5
+        /* "contracts/StringUtils.sol":388:394  v % 10 */
+      dup2
+      iszero
+      iszero
+      tag_24
+      jumpi
+      invalid
+    tag_24:
+      mod
+        /* "contracts/StringUtils.sol":387:400  (v % 10) + 48 */
+      add
+        /* "contracts/StringUtils.sol":386:417  ((v % 10) + 48) * 2 ** (8 * 31) */
+      mul
+        /* "contracts/StringUtils.sol":378:418  bytes32(((v % 10) + 48) * 2 ** (8 * 31)) */
+      0x1
+      mul
+        /* "contracts/StringUtils.sol":371:418  ret |= bytes32(((v % 10) + 48) * 2 ** (8 * 31)) */
+      dup2
+      or
+      swap1
+      pop
+        /* "contracts/StringUtils.sol":441:443  10 */
+      0xa
+        /* "contracts/StringUtils.sol":436:443  v /= 10 */
+      dup3
+      dup2
+      iszero
+      iszero
+      tag_25
+      jumpi
+      invalid
+    tag_25:
+      div
+      swap2
+      pop
+        /* "contracts/StringUtils.sol":286:458  while (v > 0) {... */
+      jump(tag_21)
+    tag_22:
+        /* "contracts/StringUtils.sol":212:468  if (v == 0) {... */
+    tag_20:
+        /* "contracts/StringUtils.sol":484:487  ret */
+      dup1
+        /* "contracts/StringUtils.sol":477:487  return ret */
+      swap1
+      pop
+        /* "contracts/StringUtils.sol":142:494  function uintToBytes(uint v) constant returns (bytes32 ret) {... */
+      swap2
+      swap1
+      pop
+      jump	// out
+
+    auxdata: 0xa165627a7a723058207eb728b134711565b712628365ecafb368c946093d9e1e9145406e6d2efd81460029
+}
