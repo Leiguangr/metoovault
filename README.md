@@ -14,20 +14,11 @@ We would like to anonymously collect some statistics to show what kind of abuse 
 
 
 
-# Setup for Developers
+# Instructions for contributors 
 
+# help with mining and keep the chain safe
 
-step 1) 
-add metamask extension to chrome browser
-
-
-step 2) 
-go to https://www.myetherwallet.com/
-create new wallet and download the wallet
-
-
-
-step 3)
+step 1)
 
 ruby -e “$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew tap ethereum/ethereum
@@ -35,51 +26,11 @@ brew install ethereum
 mkdir vault-chain
 cd vault-chain
 
-
-step 4) 
-
-geth --datadir ./vaultDir/ init vaultGenesis.json 
-cp ~/Download/UTC* ./vaultDir/keystore
-geth --datadir ./vaultDir --networkid 2018011331415 console 2>> myEth.log
-admin.addPeer("enode://[enode of other peer]@[ip of other peer]:30303")
-
-
-
-# Server Piece
-
-Checkout the project
-
-step 1)
-
-npm install -g package.json
-npm run dev
-
-step 2)
-
-After making sure the blockchain part is running
-
-geth --datadir ./vaultDir --networkid 2018011331415  --rpc --rpcaddr localhost --rpcport 8545 --rpcapi "web3,eth" --rpccorsdomain "http://localhost:8000"
-
-
---------------
-
-optional only first time deploying the contract
-
-step 1)
-
-solc --overwrite -o target --bin --abi contracts/MeTooVault.sol
-
-
 step 2) 
 
-var VaultClass = eth.contract(**content of MeTooVault.abi);
-var VaultBinary = "0x" + "**content of MeTooVault.bin";
-var deployTransationObject = { from: eth.accounts[0], data: VaultBinary, gas: 1000000 };
-personal.unlockAccount(eth.accounts[0])
-var VaultInstance = VaultClass.new(deployTransationObject)
-
-** wait a few seconds for contract to appear on the chain
-
-var VaultInstance =  VaultClass.at("**contract address")
+geth --datadir ./vaultDir/ init vaultGenesis.json 
+copy [your keystore]  ./vaultDir/keystore
+geth --datadir ./vaultDir --networkid 2018011331415 console 2>> myEth.log
+admin.addPeer("enode://e2ea3995266198b520774f09509951eaa2ee2c64e9cd8c6b42fca60b3b8afc4442978d7f0ce9d534fbeefa201f5f57c1564ac407f6359e5a3f12a25ef0922581@52.14.116.82:30303")
 
 
